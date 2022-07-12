@@ -1,5 +1,6 @@
 <script setup>
 import { Head, Link } from '@inertiajs/inertia-vue3';
+import MyMoviezCover from '@/Components/MyMoviezCover.vue';
 
 defineProps({
     canLogin: Boolean,
@@ -12,33 +13,37 @@ defineProps({
 <template>
     <Head title="Welcome" />
 
-    <div class="relative flex items-top justify-center min-h-screen bg-gray-100 dark:bg-gray-900 sm:items-center sm:pt-0">
-        <div class="fixed top-0 left-0 p-4">
-        <p>My Moviez</p>
+    <div class=" flex justify-between bg-blue-100 dark:bg-gray-900 sm:items-center">
+        <div class="left-0 p-4">
+            <p class="text-red-400">My Moviez</p>
         </div>
-        <div v-if="canLogin" class="hidden fixed top-0 right-0 px-6 py-4 sm:block">
-            <Link v-if="$page.props.auth.user" :href="route('dashboard')" class="text-sm text-gray-700 underline">
+        <div v-if="canLogin" class="px-6 py-4 sm:block">
+            <Link v-if="$page.props.auth.user" :href="route('dashboard')" class="text-sm text-blue-700 underline">
                 Dashboard
             </Link>
 
             <template v-else>
-                <Link :href="route('login')" class="text-sm text-gray-700 underline">
+                <Link :href="route('login')" class="text-sm text-blue-700 underline">
                     Log in
                 </Link>
 
 
-                <Link v-if="canRegister" :href="route('register')" class="ml-4 text-sm text-gray-700 underline">
+                <Link v-if="canRegister" :href="route('register')" class="ml-4 text-sm text-blue-700 underline">
                     Register
                 </Link>
 
             </template>
 
-                <Link :href="route('teste')" class="ml-4 text-sm text-gray-700 underline">
-                    Teste
-                </Link>
+            <Link :href="route('teste')" class="ml-4 text-sm text-blue-700 underline">
+                Teste
+            </Link>
         </div>
-
     </div>
+    <div class="sm:items-center flex justify-center flex-wrap">
+        <h1 style="font-size:50px;" class="max-w-7xl bg-blue-100 p-5 rounded-lg m-2 text-red-400"><strong>MyMoviez</strong></h1>
+        <MyMoviezCover></MyMoviezCover>
+    </div>
+
 </template>
 
 <style scoped>

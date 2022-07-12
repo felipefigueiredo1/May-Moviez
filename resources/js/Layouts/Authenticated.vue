@@ -1,6 +1,6 @@
 <script setup>
 import { ref } from 'vue';
-import BreezeApplicationLogo from '@/Components/ApplicationLogo.vue';
+import RichardLogo from '@/Components/RichardLogo.vue';
 import BreezeDropdown from '@/Components/Dropdown.vue';
 import BreezeDropdownLink from '@/Components/DropdownLink.vue';
 import BreezeNavLink from '@/Components/NavLink.vue';
@@ -12,8 +12,8 @@ const showingNavigationDropdown = ref(false);
 
 <template>
     <div>
-        <div class="min-h-screen bg-gray-100">
-            <nav class="bg-white border-b border-gray-100">
+        <div class="min-h-screen bg-blue-100">
+            <nav class="bg-blue-100 border-b border-gray-100">
                 <!-- Primary Navigation Menu -->
                 <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                     <div class="flex justify-between h-16">
@@ -21,14 +21,20 @@ const showingNavigationDropdown = ref(false);
                             <!-- Logo -->
                             <div class="shrink-0 flex items-center">
                                 <Link :href="route('dashboard')">
-                                    <BreezeApplicationLogo class="block h-9 w-auto" />
+                                    <RichardLogo class="block h-9 w-auto rounded-lg" />
                                 </Link>
                             </div>
 
                             <!-- Navigation Links -->
-                            <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                                <BreezeNavLink :href="route('dashboard')" :active="route().current('dashboard')">
+                            <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex ">
+                                <BreezeNavLink :href="route('dashboard')" :active="route().current('dashboard')" class="text-red-400">
                                     Dashboard
+                                </BreezeNavLink>
+                                <BreezeNavLink :href="route('moviez')" :active="route().current('moviez')" class="text-red-400">
+                                    Moviez
+                                </BreezeNavLink>
+                                <BreezeNavLink :href="route('post')" :active="route().current('post')" class="text-red-400">
+                                    <strong>Novo Post</strong>
                                 </BreezeNavLink>
                             </div>
                         </div>
