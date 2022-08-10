@@ -12,8 +12,8 @@ const showingNavigationDropdown = ref(false);
 
 <template>
     <div>
-        <div class="min-h-screen bg-blue-100">
-            <nav class="bg-blue-100 border-b border-gray-100">
+        <div class="min-h-screen" id="body">
+            <nav class="bg-black border-b border-gray-100">
                 <!-- Primary Navigation Menu -->
                 <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                     <div class="flex justify-between h-16">
@@ -27,13 +27,13 @@ const showingNavigationDropdown = ref(false);
 
                             <!-- Navigation Links -->
                             <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex ">
-                                <BreezeNavLink :href="route('dashboard')" :active="route().current('dashboard')" class="text-red-400">
+                                <BreezeNavLink :href="route('dashboard')" :active="route().current('dashboard')" class="text-red-600">
                                     Dashboard
                                 </BreezeNavLink>
-                                <BreezeNavLink :href="route('moviez')" :active="route().current('moviez')" class="text-red-400">
+                                <BreezeNavLink :href="route('moviez')" :active="route().current('moviez')" class="text-red-600">
                                     Moviez
                                 </BreezeNavLink>
-                                <BreezeNavLink :href="route('post')" :active="route().current('post')" class="text-red-400">
+                                <BreezeNavLink :href="route('post')" :active="route().current('post')" class="text-red-600">
                                     <strong>Novo Post</strong>
                                 </BreezeNavLink>
                             </div>
@@ -114,3 +114,12 @@ const showingNavigationDropdown = ref(false);
         </div>
     </div>
 </template>
+
+<style scoped>
+nav, #body {
+    background: #242526
+}
+header {
+    background: #EDF4F5
+}
+</style>

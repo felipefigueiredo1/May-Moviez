@@ -2,13 +2,21 @@
 
 namespace App\Http\Controllers;
 
-use Inertia\Inertia;
+use App\Models\Post;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Redirect;
+use Inertia\Inertia;
 
 class MoviezController extends Controller
 {
     public function index()
     {
-        return Inertia::render('Moviez', ['hey' => 'focker']);
+        $posts = Post::get();
+        return Inertia::render('Moviez', ['posts' => $posts]);
+    }
+
+    public function store(Request $request)
+    {
+        return Inertia::render('Moviez');
     }
 }

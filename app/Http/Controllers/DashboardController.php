@@ -10,7 +10,8 @@ class DashboardController extends Controller
 {
     public function index()
     {
-        $posts = Post::with('comments')->get();
+        //$posts = Post::with('comments')->get();
+        $posts = Post::where('user_id', '=', auth()->user()->id)->get();
         return Inertia::render('Dashboard', ['user' => auth()->user()->name, 'posts' => $posts]);
     }
 }

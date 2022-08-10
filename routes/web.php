@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Http\Request;
 use Inertia\Inertia;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Foundation\Application;
@@ -20,6 +21,25 @@ use App\Http\Controllers\CommentController;
 |
 */
 
+Route::get('/home', function () {
+   return Inertia::render('Home', [
+       'title' => 'Olá do servidor!'
+   ]);
+});
+
+Route::get('/lg', function() {
+   return Inertia::render('Lg');
+});
+
+Route::post('/lg', function(Request $request) {
+    $request->validate([
+        'email' => ['required', 'email'],
+        'password' => ['required'],
+    ]);
+
+    return redirect('/dashboard');
+});
+
 Route::get('/', function () {
     return Inertia::render('Welcome', [
         'canLogin' => Route::has('login'),
@@ -30,10 +50,17 @@ Route::get('/', function () {
 })->name('welcome');
 
 Route::get('/moviez', [MoviezController::class, 'index'])->middleware(['auth', 'verified'])->name('moviez');
+Route::post('/moviez', [MoviezController::class, 'store'])->middleware(['auth', 'verified'])->name('moviez.post');
+
 
 Route::get('/dashboard', [DashboardController::class, 'index'])->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::get('/post', [PostController::class, 'index'])->middleware(['auth', 'verified'])->name('post');
+Route::post('/post', [PostController::class, 'store'])->middleware(['auth', 'verified'])->name('post.post');
+Route::get('/post/{id}', [PostController::class, 'show'])->middleware(['auth', 'verified'])->name('post.show');
+
+//Route::post('/comment', [CommentController::class, 'store'])->middleware(['auth', 'verified'])->name('comment.post');
+Route::resource('comment', CommentController::class)->middleware(['auth', 'verified']);
 
 Route::get('/teste', [TesteController::class, 'index'])->name('teste');
 

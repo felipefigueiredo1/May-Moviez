@@ -11,36 +11,36 @@ defineProps({
 </script>
 
 <template>
-    <Head title="Welcome" />
+    <Head title="My Moviez!" />
 
-    <div class=" flex justify-between bg-blue-100 dark:bg-gray-900 sm:items-center">
+    <div class=" flex justify-between bg-black dark:bg-gray-900 sm:items-center">
         <div class="left-0 p-4">
-            <p class="text-red-400">My Moviez</p>
+            <p class="text-red-600">My Moviez</p>
         </div>
         <div v-if="canLogin" class="px-6 py-4 sm:block">
-            <Link v-if="$page.props.auth.user" :href="route('dashboard')" class="text-sm text-blue-700 underline">
+            <Link v-if="$page.props.auth.user" :href="route('dashboard')" class="text-sm text-red-700 underline">
                 Dashboard
             </Link>
 
             <template v-else>
-                <Link :href="route('login')" class="text-sm text-blue-700 underline">
+                <Link :href="route('login')" class="text-sm text-red-700 underline">
                     Log in
                 </Link>
 
 
-                <Link v-if="canRegister" :href="route('register')" class="ml-4 text-sm text-blue-700 underline">
+                <Link v-if="canRegister" :href="route('register')" class="ml-4 text-sm text-red-700 underline">
                     Register
                 </Link>
 
             </template>
 
-            <Link :href="route('teste')" class="ml-4 text-sm text-blue-700 underline">
+            <Link :href="route('teste')" class="ml-4 text-sm text-red-700 underline">
                 Teste
             </Link>
         </div>
     </div>
     <div class="sm:items-center flex justify-center flex-wrap">
-        <h1 style="font-size:50px;" class="max-w-7xl bg-blue-100 p-5 rounded-lg m-2 text-red-400"><strong>MyMoviez</strong></h1>
+        <h1 style="font-size:50px;" class="max-w-7xl bg-black p-5 rounded-lg m-2 text-red-600"><strong>MyMoviez</strong></h1>
         <MyMoviezCover></MyMoviezCover>
     </div>
 
