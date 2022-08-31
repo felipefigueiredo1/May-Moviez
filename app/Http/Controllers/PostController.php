@@ -27,7 +27,7 @@ class PostController extends Controller
         $user = auth()->user()->id;
         $post = Post::with('comments')->findOrFail($id);
         //$comments = $post->comments()->with('user')->get();
-        $comments = $post->comments()->with('user')->paginate(2);
+        $comments = $post->comments()->with('user')->paginate(5);
        //dd($comments);
         return Inertia::render('Show', ['post' => $post, 'user' => $user, 'comments' => $comments]);
     }

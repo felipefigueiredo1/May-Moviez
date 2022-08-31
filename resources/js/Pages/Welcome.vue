@@ -11,7 +11,7 @@ defineProps({
 </script>
 
 <template>
-    <Head title="My Moviez!" />
+    <Head title="Home" />
 
     <div class=" flex justify-between bg-black dark:bg-gray-900 sm:items-center">
         <div class="left-0 p-4">

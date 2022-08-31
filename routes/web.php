@@ -55,9 +55,12 @@ Route::post('/moviez', [MoviezController::class, 'store'])->middleware(['auth', 
 
 Route::get('/dashboard', [DashboardController::class, 'index'])->middleware(['auth', 'verified'])->name('dashboard');
 
-Route::get('/post', [PostController::class, 'index'])->middleware(['auth', 'verified'])->name('post');
-Route::post('/post', [PostController::class, 'store'])->middleware(['auth', 'verified'])->name('post.post');
-Route::get('/post/{id}', [PostController::class, 'show'])->middleware(['auth', 'verified'])->name('post.show');
+Route::group(['prefix' => 'post', 'middleware' => 'auth', 'verified'], function() {
+    Route::get('/', [PostController::class, 'index'])->name('post');
+    Route::post('/', [PostController::class, 'store'])->name('post.post');
+    Route::get('/{id}', [PostController::class, 'show'])->name('post.show');
+});
+
 
 //Route::post('/comment', [CommentController::class, 'store'])->middleware(['auth', 'verified'])->name('comment.post');
 Route::resource('comment', CommentController::class)->middleware(['auth', 'verified']);

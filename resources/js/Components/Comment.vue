@@ -9,20 +9,21 @@ export default {
     },
     methods: {
         deleteComment(id) {
-            Inertia.delete('/comment/'+id)
+            Inertia.delete('/comment/'+id,  {preserveState: false, preserveScroll: true})
         }
     }
 }
 </script>
 
 <template>
-    <div>
-        <div v-for="(comment, index) in comments.data" :key="index">
-            <p>{{ comment.user.name }}</p>
-            <p>{{ comment.body }}</p>
+    <div v-if="comments != null" class="mb-6">
+        <div v-for="(comment, index) in comments.data" :key="index" class="bg-gray-400 rounded-lg my-2" id="body">
+                <p class="text-red-700 font-bold">{{ comment.user.name }}</p>
+                <p class="text-white">{{ comment.body }}</p>
+
             <div v-if="comment.user.id == user_id || post_user_id == user_id">
                 <form @submit.prevent="deleteComment(comment.id)">
-                    <button :value="comment.id">Excluir</button>
+                    <button :value="comment.id" class="text-red-700 ml-2 p-2">Excluir</button>
                 </form>
             </div>
         </div>
@@ -33,8 +34,8 @@ export default {
 </template>
 
 <style scoped>
-div{
-
+#body{
+background: #242526;
 }
 p{
     padding: 5px;
