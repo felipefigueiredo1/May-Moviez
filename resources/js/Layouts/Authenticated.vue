@@ -79,8 +79,14 @@ const showingNavigationDropdown = ref(false);
                 <!-- Responsive Navigation Menu -->
                 <div :class="{'block': showingNavigationDropdown, 'hidden': ! showingNavigationDropdown}" class="sm:hidden">
                     <div class="pt-2 pb-3 space-y-1">
-                        <BreezeResponsiveNavLink :href="route('dashboard')" :active="route().current('dashboard')">
+                        <BreezeResponsiveNavLink :href="route('dashboard')" :active="route().current('dashboard')"  class="text-red-600">
                             Dashboard
+                        </BreezeResponsiveNavLink>
+                        <BreezeResponsiveNavLink :href="route('moviez')" :active="route().current('moviez')" class="text-red-600">
+                            Moviez
+                        </BreezeResponsiveNavLink>
+                        <BreezeResponsiveNavLink :href="route('post')" :active="route().current('post')" class="text-red-600">
+                            <strong>Novo Post</strong>
                         </BreezeResponsiveNavLink>
                     </div>
 

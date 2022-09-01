@@ -15,7 +15,7 @@ defineProps({
 
     <div class=" flex justify-between bg-black dark:bg-gray-900 sm:items-center">
         <div class="left-0 p-4">
-            <p class="text-red-600">My Moviez</p>
+            <p class="text-red-600">May Moviez</p>
         </div>
         <div v-if="canLogin" class="px-6 py-4 sm:block">
             <Link v-if="$page.props.auth.user" :href="route('dashboard')" class="text-sm text-red-700 underline">

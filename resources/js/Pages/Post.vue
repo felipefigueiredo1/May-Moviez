@@ -18,13 +18,16 @@ export default {
         }
     },
     props: {
-      user: String
+      user: String,
+      errors: Object
     },
     setup() {
         const form = reactive({
             name: null,
             body: null,
             user_id: null,
+            movie: null,
+            rating: null,
         })
 
         function submit() {
@@ -42,7 +45,7 @@ export default {
         submitMovie() {
             self = this;
 
-            self.covers(self.movie);
+            self.covers(self.form.name);
         },
         set(){
             self = this;
@@ -50,6 +53,7 @@ export default {
             self.cover.slice(0, 6).forEach(function(nome) {
                     self.capas.push(nome)
             })
+            console.log(self.form.name);
         },
         covers(param) {
             self = this;
@@ -87,12 +91,13 @@ export default {
             <div class="overflow-hidden shadow-sm sm:rounded-lg" id="div-form">
 
                 <div class="p-6 border-b border-gray-200">
-                    <div class="m-2">
-                        <label class="mr-1"><strong>Buscar capa</strong></label>
+                    <div class="">
+                        <label class="mr-1"><strong>Título:</strong></label>
                         <form @submit.prevent="submitMovie">
-                            <input type="text" class="rounded-md bg-gray-50 focus:border-red-200 focus:ring-red-500 mr-1" v-model="movie">
-                            <Button :type="submit" class="mt-2">Pesquisar</Button>
+                            <input type="text" class="focus:border-red-200 focus:ring-red-500 mr-1 w-full sm:w-96" id="name" v-model="form.name">
+                            <Button :type="submit" class="mt-2">Pesquisar Capa</Button>
                         </form>
+                        <div v-if="errors.name"><span class="font-bold text-red-700">{{ errors.name }}</span></div>
                     </div>
                     <div class="flex justify-between flex-wrap">
                         <div v-for="(capa, index) in capas" :key="index">
@@ -100,23 +105,42 @@ export default {
                                 <h2 class="text-center">{{ capa.l }}</h2>
                                 <img :src="capa.i.imageUrl" class="object-contain h-48 rounded-sm">
                                 <div class="flex justify-center">
-                                    <input type="radio" name="capa">
+                                    <input type="radio" v-model="form.movie" name="movie" :value="capa">
                                 </div>
                             </div>
                         </div>
                     </div>
                     <form @submit.prevent="submit">
-                        <div class="m-2">
-                            <label for="name" class="mr-1"><strong>Titulo: </strong></label>
-                            <div>
-                                <input type="text" class="rounded-md bg-gray-50 focus:border-red-200 focus:ring-red-500" name="name" v-model="form.name">
-                            </div>
-                        </div>
-                        <div class="m-2">
+                        <div class="">
                             <label for="body" class="mr-1"><strong>Descrição: </strong></label>
                             <div>
-                                <textarea name="body" class="rounded-md bg-gray-50 focus:border-red-200 focus:ring-red-500" rows="4" cols="50" v-model="form.body"></textarea>
+                                <textarea name="body" class="focus:border-red-200 focus:ring-red-500 w-full sm:w-96" rows="4" v-model="form.body"></textarea>
+                                <div v-if="errors.body"><span class="font-bold text-red-700">{{ errors.body }}</span></div>
                             </div>
+                        </div>
+                        <div class="mb-2">
+                            <label><strong>Nota!</strong></label>
+                            <div class="flex justify-between w-60">
+                                <div>
+                                    0 <input type="radio" v-model="form.rating" name="nota" value="0">
+                                </div>
+                                <div>
+                                    1 <input type="radio" v-model="form.rating" name="nota" value="1">
+                                </div>
+                                <div>
+                                    2 <input type="radio" v-model="form.rating" name="nota" value="2">
+                                </div>
+                                <div>
+                                    3 <input type="radio" v-model="form.rating" name="nota" value="3">
+                                </div>
+                                <div>
+                                    4 <input type="radio" v-model="form.rating" name="nota" value="4">
+                                </div>
+                                <div>
+                                    5 <input type="radio" v-model="form.rating" name="nota" value="5">
+                                </div>
+                            </div>
+                            <div v-if="errors.rating"><span class="font-bold text-red-700">{{ errors.rating }}</span></div>
                         </div>
                         <div class="flex items-center">
                             <Button type="submit">Enviar</Button>
@@ -133,7 +157,8 @@ export default {
 </template>
 
 <style scopde>
-#div-form{
+input[type="text"], #div-form, textarea{
     background: #EDF4F5
 }
+
 </style>

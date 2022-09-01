@@ -18,7 +18,22 @@ class PostController extends Controller
 
     public function store(Request $request)
     {
-        Post::create($request->all());
+        $rules = [
+            'name' => 'required',
+            'body' => 'required',
+            'rating' => 'required',
+        ];
+        $feedback = [
+            'required' => 'O campo :attribute é requerido!',
+        ];
+        $request->validate($rules, $feedback);
+        Post::create([
+            'name' => $request->name,
+            'user_id' => $request->user_id,
+            'body' => $request->body,
+            'rating' => $request->rating,
+            'linkImage' => $request->movie["i"]["imageUrl"] ?? null,
+        ]);
         return Redirect::route('moviez');
     }
 
@@ -31,4 +46,11 @@ class PostController extends Controller
        //dd($comments);
         return Inertia::render('Show', ['post' => $post, 'user' => $user, 'comments' => $comments]);
     }
+
+    public function destroy($id)
+    {
+        Post::destroy($id);
+        return redirect()->back();
+    }
+
 }

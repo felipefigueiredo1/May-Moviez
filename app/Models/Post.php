@@ -14,6 +14,8 @@ class Post extends Model
         'name',
         'body',
         'user_id',
+        'linkImage',
+        'rating',
     ];
 
     public function comments()
