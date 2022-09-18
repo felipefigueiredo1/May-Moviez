@@ -51,9 +51,14 @@ Route::get('/', function () {
 
 Route::get('/moviez', [MoviezController::class, 'index'])->middleware(['auth', 'verified'])->name('moviez');
 Route::post('/moviez', [MoviezController::class, 'store'])->middleware(['auth', 'verified'])->name('moviez.post');
+Route::get('/moviez/buscando', [MoviezController::class, 'index'])->middleware(['auth', 'verified'])->name('moviez');
+Route::post('/moviez/buscando', [MoviezController::class, 'buscando'])->name('post.buscando');
 
 
 Route::get('/dashboard', [DashboardController::class, 'index'])->middleware(['auth', 'verified'])->name('dashboard');
+Route::post('/dashboard/buscando', [DashboardController::class, 'buscando'])->middleware(['auth', 'verified'])->name('dashboard.buscando');
+Route::get('/dashboard/buscando', [DashboardController::class, 'index'])->middleware(['auth', 'verified'])->name('dashboard');
+
 
 Route::group(['prefix' => 'post', 'middleware' => 'auth', 'verified'], function() {
     Route::get('/', [PostController::class, 'index'])->name('post');

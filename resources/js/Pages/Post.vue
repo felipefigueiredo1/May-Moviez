@@ -94,7 +94,7 @@ export default {
                     <div class="">
                         <label class="mr-1"><strong>Título:</strong></label>
                         <form @submit.prevent="submitMovie">
-                            <input type="text" class="focus:border-red-200 focus:ring-red-500 mr-1 w-full sm:w-96" id="name" v-model="form.name">
+                            <input type="text" class="focus:border-red-200 focus:ring-red-500 mr-1 w-full sm:w-96 rounded" id="name" v-model="form.name">
                             <Button :type="submit" class="mt-2">Pesquisar Capa</Button>
                         </form>
                         <div v-if="errors.name"><span class="font-bold text-red-700">{{ errors.name }}</span></div>
@@ -114,7 +114,7 @@ export default {
                         <div class="">
                             <label for="body" class="mr-1"><strong>Descrição: </strong></label>
                             <div>
-                                <textarea name="body" class="focus:border-red-200 focus:ring-red-500 w-full sm:w-96" rows="4" v-model="form.body"></textarea>
+                                <textarea name="body" class="focus:border-red-200 rounded focus:ring-red-500 w-full sm:w-96" rows="4" v-model="form.body"></textarea>
                                 <div v-if="errors.body"><span class="font-bold text-red-700">{{ errors.body }}</span></div>
                             </div>
                         </div>

@@ -1,9 +1,9 @@
 <template>
-    <div class="flex items-start flex-wrap">
-        <div class="max-w-sm rounded overflow-hidden shadow-lg bg-white m-1 w-96 h-auto" v-for="(post, index) in posts" :key="index">
+    <div class="" >
+        <div class="max-w-sm rounded overflow-hidden shadow-lg bg-white m-1 w-96 h-auto" v-for="(post, index) in posts.data" :key="index" >
             <div class="px-6 py-4">
                 <div v-if="post.linkImage">
-                    <img :src="post.linkImage" style="max-height:350px; width:330px;" class="rounded-lg">
+                    <Link :href="route('post.show', post.id)"><img :src="post.linkImage" style="max-height:350px; width:330px;" class="rounded-lg"></Link>
                 </div>
                 <div class="font-bold text-xl ">
                     <Link :href="route('post.show', post.id)">{{ post.name }}</Link>
@@ -32,12 +32,14 @@
 <!--                <span class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">#winter</span>-->
 <!--            </div>-->
         </div>
+        <Pagination :links="posts.links" />
     </div>
 
 </template>
 
 <script>
 import { Link } from '@inertiajs/inertia-vue3';
+import Pagination from '@/Components/Pagination.vue'
 
 export default {
     name: "Card",
@@ -47,7 +49,8 @@ export default {
         }
     },
     components: {
-        Link
+        Link,
+        Pagination
     },
     props: {
         posts: Object,

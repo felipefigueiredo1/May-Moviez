@@ -11,12 +11,19 @@ class MoviezController extends Controller
 {
     public function index()
     {
-        $posts = Post::get();
+        $posts = Post::paginate(1);
         return Inertia::render('Moviez', ['posts' => $posts]);
     }
 
     public function store(Request $request)
     {
         return Inertia::render('Moviez');
+    }
+
+    public function buscando(Request $request)
+    {
+        $posts = Post::where('name', 'like', '%'.$request->buscar.'%')->paginate(1);
+
+        return Inertia::render('Moviez', ['posts' => $posts]);
     }
 }

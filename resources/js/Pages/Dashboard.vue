@@ -2,13 +2,16 @@
 import BreezeAuthenticatedLayout from '@/Layouts/Authenticated.vue'
 import Card from '@/Components/Card.vue'
 import { Head, Link } from '@inertiajs/inertia-vue3'
+import Search from '@/Components/SearchPost.vue'
+
 
 export default {
     components: {
         Head,
         BreezeAuthenticatedLayout,
         Card,
-        Link
+        Link,
+        Search
     },
     props: {
         user: String,
@@ -25,6 +28,7 @@ export default {
             <h2 class="font-semibold text-xl text-gray-800 leading-tight">
                 Dashboard
             </h2>
+            <Search rota="dashboard"/>
         </template>
 
         <div class="py-12">
@@ -35,6 +39,7 @@ export default {
                     </div>
                 </div>
                 <h3 class="text-center p-3 text-red-600"><strong>Suas analises</strong></h3>
+<!--                {{ posts }}-->
                 <Card :posts="posts"/>
             </div>
         </div>

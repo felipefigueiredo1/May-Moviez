@@ -111,8 +111,18 @@ export default {
             <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
                 <div class="overflow-hidden shadow-sm sm:rounded-lg">
                     <div class="p-6 bg-white-ice border-b border-gray-200">
-                        <h1 class="text-3xl">{{ post.name }}</h1>
-                        <p class="m-3 border rounded-lg p-2">{{ post.body }}</p>
+                        <h1 class="text-3xl mb-2">{{ post.name }}</h1>
+                        <div class="grid grid-cols-3">
+                            <img :src="post.linkImage" class="rounded-lg" style="max-height:350px; width:330px;">
+                            <div class="col-span-2">
+                                <p class="mt-6 mb-4">{{ post.body }}</p>
+                                <div class="flex">
+                                    <div v-for="n in post.rating">
+                                        <span><img src="/img/star.png" style="height:35px;"></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -123,7 +133,6 @@ export default {
                             <Comment :comments="comments" :user_id="user" :post_user_id="post.user_id"/>
                         </div>
                         <div>
-
 
                             <form @submit.prevent="submitComment" >
                                 <label for="message" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-400">Comente Aqui!</label>
