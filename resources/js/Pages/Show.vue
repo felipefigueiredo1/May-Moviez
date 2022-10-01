@@ -133,7 +133,6 @@ export default {
                             <Comment :comments="comments" :user_id="user" :post_user_id="post.user_id"/>
                         </div>
                         <div>
-
                             <form @submit.prevent="submitComment" >
                                 <label for="message" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-400">Comente Aqui!</label>
                                 <textarea id="message" rows="4" class="block p-2.5 w-full text-sm text-gray-900

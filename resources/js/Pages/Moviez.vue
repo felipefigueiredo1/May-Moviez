@@ -27,10 +27,7 @@ export default {
 
 <BreezeAuthenticatedLayout>
     <template #header>
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            Todas as análises
-        </h2>
-        <Search rota="moviez"/>
+        <Search rota="moviez" placeholder="Buscar todas as análises"/>
     </template>
 
     <div class="py-12 max-w-7xl mx-auto sm:px-6 lg:px-8">

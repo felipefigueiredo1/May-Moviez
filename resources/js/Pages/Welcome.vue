@@ -34,15 +34,14 @@ defineProps({
 
             </template>
 
-            <Link :href="route('teste')" class="ml-4 text-sm text-red-700 underline">
-                Teste
-            </Link>
         </div>
     </div>
-    <div class="sm:items-center flex justify-center flex-wrap">
-        <h1 style="font-size:50px;" class="max-w-7xl bg-black p-5 rounded-lg m-2 text-red-600"><strong>MyMoviez</strong></h1>
-        <MyMoviezCover></MyMoviezCover>
+    <div id="image" style="height: 1050px">
+        <div class="sm:items-center flex justify-center flex-wrap">
+            <h1 style="font-size:50px;" class="max-w-7xl bg-black p-5 rounded-lg m-2 text-red-600"><strong>MyMoviez</strong></h1>
+        </div>    
     </div>
+    
 
 </template>
 
@@ -80,6 +79,9 @@ defineProps({
     .text-gray-900 {
         color: #1a202c;
         color: rgba(26, 32, 44, var(--tw-text-opacity));
+    }
+    #image {
+        background-image: url("/img/mymoviez.jpg");
     }
 
     @media (prefers-color-scheme: dark) {

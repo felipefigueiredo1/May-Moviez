@@ -1,11 +1,9 @@
 <?php
 
-use Illuminate\Http\Request;
 use Inertia\Inertia;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Foundation\Application;
 use App\Http\Controllers\PostController;
-use App\Http\Controllers\TesteController;
 use App\Http\Controllers\MoviezController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\CommentController;
@@ -25,19 +23,6 @@ Route::get('/home', function () {
    return Inertia::render('Home', [
        'title' => 'Olá do servidor!'
    ]);
-});
-
-Route::get('/lg', function() {
-   return Inertia::render('Lg');
-});
-
-Route::post('/lg', function(Request $request) {
-    $request->validate([
-        'email' => ['required', 'email'],
-        'password' => ['required'],
-    ]);
-
-    return redirect('/dashboard');
 });
 
 Route::get('/', function () {
@@ -70,7 +55,5 @@ Route::group(['prefix' => 'post', 'middleware' => 'auth', 'verified'], function(
 
 //Route::post('/comment', [CommentController::class, 'store'])->middleware(['auth', 'verified'])->name('comment.post');
 Route::resource('comment', CommentController::class)->middleware(['auth', 'verified']);
-
-Route::get('/teste', [TesteController::class, 'index'])->name('teste');
 
 require __DIR__.'/auth.php';
