@@ -1,6 +1,5 @@
 <script setup>
 import { Head, Link } from '@inertiajs/inertia-vue3';
-import MyMoviezCover from '@/Components/MyMoviezCover.vue';
 
 defineProps({
     canLogin: Boolean,
@@ -39,9 +38,9 @@ defineProps({
     <div id="image" style="height: 1050px">
         <div class="sm:items-center flex justify-center flex-wrap">
             <h1 style="font-size:50px;" class="max-w-7xl bg-black p-5 rounded-lg m-2 text-red-600"><strong>MyMoviez</strong></h1>
-        </div>    
+        </div>
     </div>
-    
+
 
 </template>
 

@@ -4,20 +4,26 @@ namespace App\Http\Controllers;
 
 use Inertia\Inertia;
 use Illuminate\Http\Request;
-use App\Models\Post;
+use App\Repository\PostRepository;
 
 class DashboardController extends Controller
 {
+    public $postRepository;
+
+    public function __construct(PostRepository $postRepository)
+    {
+        $this->postRepository = $postRepository;
+    }
+
     public function index()
     {
-        //$posts = Post::with('comments')->get();
-        $posts = Post::where('user_id', '=', auth()->user()->id)->paginate(1);
+        $posts = $this->postRepository->get(true);
         return Inertia::render('Dashboard', ['user' => auth()->user()->name, 'posts' => $posts]);
     }
 
     public function buscando(Request $request)
     {
-        $posts = Post::where('name', 'like', '%'.$request->buscar.'%')->where('user_id', '=', auth()->user()->id)->paginate(1);
+        $posts = $this->postRepository->search($request, true);
 
         return Inertia::render('Dashboard', ['user' => auth()->user()->name, 'posts' => $posts]);
     }

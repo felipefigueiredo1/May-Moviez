@@ -2,16 +2,23 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Post;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
+use App\Repository\PostRepository;
 use Inertia\Inertia;
 
 class MoviezController extends Controller
 {
+    public object $postRepository;
+
+    public function __construct(PostRepository $postRepository)
+    {
+        $this->postRepository = $postRepository;
+    }
+
     public function index()
     {
-        $posts = Post::paginate(1);
+        $posts = $this->postRepository->get();
         return Inertia::render('Moviez', ['posts' => $posts]);
     }
 
@@ -22,7 +29,7 @@ class MoviezController extends Controller
 
     public function buscando(Request $request)
     {
-        $posts = Post::where('name', 'like', '%'.$request->buscar.'%')->paginate(1);
+        $posts = $this->postRepository->search($request);
 
         return Inertia::render('Moviez', ['posts' => $posts]);
     }
