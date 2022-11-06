@@ -34,15 +34,22 @@ Route::get('/', function () {
     ]);
 })->name('welcome');
 
-Route::get('/moviez', [MoviezController::class, 'index'])->middleware(['auth', 'verified'])->name('moviez');
-Route::post('/moviez', [MoviezController::class, 'store'])->middleware(['auth', 'verified'])->name('moviez.post');
-Route::get('/moviez/buscando', [MoviezController::class, 'index'])->middleware(['auth', 'verified'])->name('moviez');
-Route::post('/moviez/buscando', [MoviezController::class, 'buscando'])->name('post.buscando');
+Route::group(['prefix' => 'moviez', 'middleware' => 'auth', 'verified'], function() {
+    Route::get('/', [MoviezController::class, 'index'])->name('moviez');
+    Route::post('/', [MoviezController::class, 'store'])->name('moviez.post');
+    Route::get('/buscando', [MoviezController::class, 'index'])->name('moviez');
+    Route::post('/buscando', [MoviezController::class, 'buscando'])->name('post.buscando');
+});
 
 
-Route::get('/dashboard', [DashboardController::class, 'index'])->middleware(['auth', 'verified'])->name('dashboard');
-Route::post('/dashboard/buscando', [DashboardController::class, 'buscando'])->middleware(['auth', 'verified'])->name('dashboard.buscando');
-Route::get('/dashboard/buscando', [DashboardController::class, 'index'])->middleware(['auth', 'verified'])->name('dashboard');
+
+Route::group(['prefix' => 'dashboard', 'middleware' => 'auth', 'verified'], function() {
+    Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
+    Route::post('/buscando', [DashboardController::class, 'buscando'])->name('dashboard.buscando');
+    Route::get('/buscando', [DashboardController::class, 'index'])->name('dashboard');
+
+});
+
 
 
 Route::group(['prefix' => 'post', 'middleware' => 'auth', 'verified'], function() {
@@ -52,8 +59,6 @@ Route::group(['prefix' => 'post', 'middleware' => 'auth', 'verified'], function(
     Route::delete('/{id}', [PostController::class, 'destroy'])->name('post.destroy');
 });
 
-
-//Route::post('/comment', [CommentController::class, 'store'])->middleware(['auth', 'verified'])->name('comment.post');
 Route::resource('comment', CommentController::class)->middleware(['auth', 'verified']);
 
 require __DIR__.'/auth.php';
