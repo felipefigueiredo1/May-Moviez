@@ -24,7 +24,6 @@ class DashboardController extends Controller
     public function buscando(Request $request)
     {
         $posts = $this->postRepository->search($request, true);
-
         return Inertia::render('Dashboard', ['user' => auth()->user()->name, 'posts' => $posts]);
     }
 }
