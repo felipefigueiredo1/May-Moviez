@@ -15,8 +15,12 @@ return new class extends Migration
     {
         Schema::create('posts', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('user_id');
+            $table->foreign('user_id')->references('id')->on('users');
             $table->string('name', 255);
             $table->text('body');
+            $table->string('linkImage', 500)->nullable();
+            $table->integer('rating');
             $table->timestamps();
         });
     }

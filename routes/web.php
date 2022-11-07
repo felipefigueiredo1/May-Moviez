@@ -41,8 +41,6 @@ Route::group(['prefix' => 'moviez', 'middleware' => 'auth', 'verified'], functio
     Route::post('/buscando', [MoviezController::class, 'buscando'])->name('post.buscando');
 });
 
-
-
 Route::group(['prefix' => 'dashboard', 'middleware' => 'auth', 'verified'], function() {
     Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
     Route::post('/buscando', [DashboardController::class, 'buscando'])->name('dashboard.buscando');
