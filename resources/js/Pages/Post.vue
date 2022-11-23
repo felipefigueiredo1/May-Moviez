@@ -82,8 +82,8 @@ export default {
 <BreezeAuthenticatedLayout>
 
     <template #header>
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            Novo Post
+        <h2 class="font-semibold text-xl text-gray-800 leading-tight" title="Faça sua análise incrível!">
+            NOVA ANÁLISE
         </h2>
     </template>
     <div class="py-12">
@@ -114,7 +114,10 @@ export default {
                         <div class="">
                             <label for="body" class="mr-1"><strong>Descrição: </strong></label>
                             <div>
-                                <textarea name="body" class="focus:border-red-200 rounded focus:ring-red-500 w-full sm:w-96" rows="4" v-model="form.body"></textarea>
+                                <textarea name="body"
+                                  class="focus:border-red-200 rounded focus:ring-red-500 w-full h-48"
+                                  rows="4" v-model="form.body">
+                                </textarea>
                                 <div v-if="errors.body"><span class="font-bold text-red-700">{{ errors.body }}</span></div>
                             </div>
                         </div>
@@ -158,7 +161,7 @@ export default {
 
 <style scopde>
 input[type="text"], #div-form, textarea{
-    background: #EDF4F5
+    background: white
 }
 
 </style>

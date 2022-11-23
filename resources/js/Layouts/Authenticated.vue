@@ -107,8 +107,8 @@ const showingNavigationDropdown = ref(false);
             </nav>
 
             <!-- Page Heading -->
-            <header class="bg-white shadow" v-if="$slots.header">
-                <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
+            <header class="bg-white shadow " v-if="$slots.header">
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3 px-2">
                     <slot name="header" />
                 </div>
             </header>
@@ -125,7 +125,7 @@ const showingNavigationDropdown = ref(false);
 nav, #body {
     background: #242526
 }
-header {
-    background: #EDF4F5
-}
+/*header {*/
+/*    background: #EDF4F5*/
+/*}*/
 </style>
