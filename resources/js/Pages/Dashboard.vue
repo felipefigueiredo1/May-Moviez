@@ -6,6 +6,11 @@ import Search from '@/Components/SearchPost.vue'
 
 
 export default {
+    data() {
+        return {
+            carregarCard: false
+        }
+    },
     components: {
         Head,
         BreezeAuthenticatedLayout,
@@ -16,7 +21,7 @@ export default {
     props: {
         user: String,
         posts: Array
-    }
+    },
 }
 </script>
 
@@ -37,7 +42,7 @@ export default {
                 </div>
                 <h3 class="text-center p-3 text-red-600"><strong>Suas analises</strong></h3>
 <!--                {{ posts }}-->
-                <Card :posts="posts"/>
+                <Card :posts="posts" :carregar="carregarCard"/>
             </div>
         </div>
     </BreezeAuthenticatedLayout>
