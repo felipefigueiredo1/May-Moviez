@@ -31,8 +31,7 @@ class PostController extends Controller
             'name' => $request->name,
             'user_id' => $request->user_id,
             'body' => $request->body,
-            'rating' => $request->rating,
-            'linkImage' => $request->movie["i"]["imageUrl"] ?? null,
+            'rating' => $request->rating
         ]);
         return Redirect::route('moviez');
     }
@@ -41,9 +40,7 @@ class PostController extends Controller
     {
         $user = auth()->user()->id;
         $post = Post::with('comments')->findOrFail($id);
-        //$comments = $post->comments()->with('user')->get();
         $comments = $post->comments()->with('user')->paginate(5);
-       //dd($comments);
         return Inertia::render('Show', ['post' => $post, 'user' => $user, 'comments' => $comments]);
     }
 

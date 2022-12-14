@@ -13,8 +13,11 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::table('comments_likes', function (Blueprint $table) {
-            //
+        Schema::table('comment_likes', function (Blueprint $table) {
+            $table->dropForeign('comment_likes_comment_id_foreign');
+            $table->dropForeign('comment_likes_user_id_foreign');
+            $table->foreign('comment_id')->references('id')->on('comments')->onDelete('cascade')->change();
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade')->change();;
         });
     }
 

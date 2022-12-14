@@ -3,6 +3,7 @@ import BreezeAuthenticatedLayout from '@/Layouts/Authenticated.vue'
 import Card from '@/Components/Card.vue'
 import { Head, Link } from '@inertiajs/inertia-vue3'
 import Search from '@/Components/SearchPost.vue'
+import PostModal from '@/Components/PostModal.vue'
 
 
 export default {
@@ -12,6 +13,7 @@ export default {
         }
     },
     components: {
+        PostModal,
         Head,
         BreezeAuthenticatedLayout,
         Card,
@@ -20,7 +22,9 @@ export default {
     },
     props: {
         user: String,
-        posts: Array
+        posts: Array,
+        errors: Object,
+        userId: String,
     },
 }
 </script>
@@ -31,8 +35,14 @@ export default {
     <BreezeAuthenticatedLayout>
         <template #header>
             <Search rota="dashboard" placeholder="Buscar minhas análises"/>
-        </template>
 
+            <label for="post-modal" class="btn font-bold border border-red-800 btn-sm bg-red-500 mt-2 cursor-pointer">Novo Post</label>
+
+            <PostModal :errors="errors" :user="userId"/>
+        </template>
+        <div>
+
+        </div>
         <div class="py-12">
             <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
                 <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
@@ -41,7 +51,6 @@ export default {
                     </div>
                 </div>
                 <h3 class="text-center p-3 text-red-600"><strong>Suas analises</strong></h3>
-<!--                {{ posts }}-->
                 <Card :posts="posts" :carregar="carregarCard"/>
             </div>
         </div>

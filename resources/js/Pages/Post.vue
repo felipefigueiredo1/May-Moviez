@@ -153,9 +153,7 @@ export default {
             </div>
         </div>
     </div>
-
 </BreezeAuthenticatedLayout>
-
 
 </template>
 
