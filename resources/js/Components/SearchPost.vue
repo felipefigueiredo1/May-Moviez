@@ -1,7 +1,6 @@
 <template>
         <form class="" @submit.prevent="form.post('/'+props.rota+'/buscando')">
             <input type="text" v-model="form.buscar" :placeholder="placeholder" name="buscar" class="focus:border-red-200 focus:ring-red-500 mr-1 py-0 w-full sm:w-96 rounded">
-<!--            <Button type="submit">Pesquisar</Button>-->
         </form>
 </template>
 <script>
@@ -20,16 +19,6 @@ export default {
            })
        }
     },
-    // setup (props) {
-    //     const form = useForm({
-    //         buscar: null,
-    //     })
-    //
-    //     const teste = function send() {
-    //     }
-    //
-    // return {form, teste}
-    // },
     components: {
         Button
     },

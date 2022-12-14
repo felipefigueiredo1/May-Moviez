@@ -111,7 +111,7 @@ export default {
                 </div>
             </form>
             <div class="modal-action">
-                <Button type="submit" form="post_form">Enviar</Button>
+                <Button type="submit" form="post_form">Publicar</Button>
             </div>
         </div>
     </div>

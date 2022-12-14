@@ -18,7 +18,7 @@ class MoviezController extends Controller
 
     public function index()
     {
-        $posts = $this->postRepository->get();
+        $posts = $this->postRepository->get(6);
         return Inertia::render('Moviez', ['posts' => $posts]);
     }
 
@@ -29,7 +29,7 @@ class MoviezController extends Controller
 
     public function buscando(Request $request)
     {
-        $posts = $this->postRepository->search($request);
+        $posts = $this->postRepository->search($request, 6);
 
         return Inertia::render('Moviez', ['posts' => $posts]);
     }

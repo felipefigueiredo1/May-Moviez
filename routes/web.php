@@ -19,12 +19,6 @@ use App\Http\Controllers\CommentController;
 |
 */
 
-Route::get('/home', function () {
-   return Inertia::render('Home', [
-       'title' => 'Olá do servidor!'
-   ]);
-});
-
 Route::get('/', function () {
     return Inertia::render('Welcome', [
         'canLogin' => Route::has('login'),

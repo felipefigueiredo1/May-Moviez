@@ -104,12 +104,7 @@ export default {
 <template>
     <BreezeAuthenticatedLayout>
         <Head title="Page" />
-        <template #header>
-            <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-                ANÁLISE
-            </h2>
-        </template>
-        <div class="py-12">
+        <div class="">
             <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
                 <div class="overflow-hidden shadow-sm sm:rounded-sm">
                     <div class="p-6 bg-white border-b border-gray-200">
@@ -121,12 +116,13 @@ export default {
                                 </div>
                             </div>
                         </div>
-                        <div class="flex flex-wrap gap-5">
-                            <img :src="post.linkImage" class="rounded-sm" style="max-height:350px; width:330px;">
-                            <div style="width:700px">
-                                <p class="mt-6 mb-4">{{ post.body }}</p>
-                            </div>
+                        <div style="width:700px">
+                            <p class="mt-6 mb-4">{{ post.body }}</p>
                         </div>
+<!--                        <div class="flex flex-wrap gap-5">-->
+<!--                            <img :src="post.linkImage" class="rounded-sm" style="max-height:350px; width:330px;">-->
+<!--                            -->
+<!--                        </div>-->
                     </div>
                 </div>
             </div>

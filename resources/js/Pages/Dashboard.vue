@@ -34,10 +34,11 @@ export default {
 
     <BreezeAuthenticatedLayout>
         <template #header>
-            <Search rota="dashboard" placeholder="Buscar minhas análises"/>
+            <div class="flex items-center">
+                <Search rota="dashboard" placeholder="Buscar minhas análises"/>
 
-            <label for="post-modal" class="btn font-bold border border-red-800 btn-sm bg-red-500 mt-2 cursor-pointer">Novo Post</label>
-
+                <label for="post-modal" class="btn btn-sm font-bold border border-red-800 btn-sm bg-red-500 cursor-pointer">Novo Post</label>
+            </div>
             <PostModal :errors="errors" :user="userId"/>
         </template>
         <div>

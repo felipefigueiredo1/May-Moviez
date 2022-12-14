@@ -41,7 +41,7 @@ class PostController extends Controller
         $user = auth()->user()->id;
         $post = Post::with('comments')->findOrFail($id);
         $comments = $post->comments()->with('user')->paginate(5);
-        return Inertia::render('Show', ['post' => $post, 'user' => $user, 'comments' => $comments]);
+        return Inertia::render('PostPage', ['post' => $post, 'user' => $user, 'comments' => $comments]);
     }
 
     public function destroy($id)
