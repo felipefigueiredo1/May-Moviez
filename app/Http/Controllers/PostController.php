@@ -12,8 +12,7 @@ class PostController extends Controller
 {
     public function index()
     {
-        $user = auth()->user()->id;
-        return Inertia::render('Post', ['user' => $user]);
+        return Post::all();
     }
 
     public function store(Request $request)
@@ -24,16 +23,23 @@ class PostController extends Controller
             'rating' => 'required',
         ];
         $feedback = [
-            'required' => 'O campo :attribute é requerido!',
+            'name.required' => 'O campo titulo não pode ser vazio!',
+            'name.body' => 'O campo descrição não pode ser vazio!',
+            'name.rating' => 'O campo nota não pode ser vazio!',
         ];
         $request->validate($rules, $feedback);
-        Post::create([
-            'name' => $request->name,
-            'user_id' => $request->user_id,
-            'body' => $request->body,
-            'rating' => $request->rating
-        ]);
-        return Redirect::route('moviez');
+        try {
+            Post::create([
+                'name' => $request->name,
+                'user_id' => $request->user_id,
+                'body' => $request->body,
+                'rating' => $request->rating
+            ]);
+
+            return Redirect::route('dashboard')->with("message", "Publicado com sucesso!");
+        } catch(\Throwable $th) {
+            return Redirect::route('dashboard')->with("message", "Ocorreu algum erro contate o administrador.");
+        }
     }
 
     public function show($id)
@@ -41,13 +47,17 @@ class PostController extends Controller
         $user = auth()->user()->id;
         $post = Post::with('comments')->findOrFail($id);
         $comments = $post->comments()->with('user')->paginate(5);
-        return Inertia::render('PostPage', ['post' => $post, 'user' => $user, 'comments' => $comments]);
+        return Inertia::render('PostPage', ['post' => $post, 'user' => $user, 'comments' => $comments]);;
     }
 
     public function destroy($id)
     {
-        Post::destroy($id);
-        return redirect()->back();
+        try{
+            Post::destroy($id);
+            return back();
+        } catch(\Throwable $th) {
+            return redirect()->back()->with("message", "Não foi possivel excluir essa publicação.");
+        }
     }
 
 

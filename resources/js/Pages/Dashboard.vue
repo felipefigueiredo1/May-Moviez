@@ -22,9 +22,9 @@ export default {
     },
     props: {
         user: String,
-        posts: Array,
+        posts: Object,
         errors: Object,
-        userId: String,
+        userId: Number,
     },
 }
 </script>
@@ -37,20 +37,19 @@ export default {
             <div class="flex items-center">
                 <Search rota="dashboard" placeholder="Buscar minhas análises"/>
 
-                <label for="post-modal" class="btn btn-sm font-bold border border-red-800 btn-sm bg-red-500 cursor-pointer">Novo Post</label>
+                <div>
+                    <label for="post-modal" class="btn-sm mx-2
+                     font-bold border border-red-800 bg-red-500 cursor-pointer text-white">
+                        Novo Post</label>
+                </div>
+                <div v-if="$page.props.flash.message"  class="ml-4 bg-red-500 px-1 rounded font-bold">
+                    {{ $page.props.flash.message }}
+                </div>
             </div>
             <PostModal :errors="errors" :user="userId"/>
         </template>
-        <div>
-
-        </div>
-        <div class="py-12">
+        <div class="">
             <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-                <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-                    <div class="p-6 bg-white border-b border-gray-200" style="background: #EDF4F5">
-                        Bem vindo ao May Moviez <span class="text-red-700"><strong>{{ user }}</strong></span> !
-                    </div>
-                </div>
                 <h3 class="text-center p-3 text-red-600"><strong>Suas analises</strong></h3>
                 <Card :posts="posts" :carregar="carregarCard"/>
             </div>

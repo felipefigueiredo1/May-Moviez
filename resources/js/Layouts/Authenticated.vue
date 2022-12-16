@@ -13,7 +13,7 @@ const showingNavigationDropdown = ref(false);
 <template>
     <div>
         <div class="min-h-screen" id="body">
-            <nav class="bg-black border-b border-gray-100">
+            <nav class="border-b border-gray-100">
                 <!-- Primary Navigation Menu -->
                 <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                     <div class="flex justify-between h-16">
@@ -32,9 +32,6 @@ const showingNavigationDropdown = ref(false);
                                 </BreezeNavLink>
                                 <BreezeNavLink :href="route('moviez')" :active="route().current('moviez')" class="text-red-600">
                                     Moviez
-                                </BreezeNavLink>
-                                <BreezeNavLink :href="route('post')" :active="route().current('post')" class="text-red-600">
-                                    <strong>Novo Post</strong>
                                 </BreezeNavLink>
                             </div>
                         </div>
@@ -85,20 +82,17 @@ const showingNavigationDropdown = ref(false);
                         <BreezeResponsiveNavLink :href="route('moviez')" :active="route().current('moviez')" class="text-red-600">
                             Moviez
                         </BreezeResponsiveNavLink>
-                        <BreezeResponsiveNavLink :href="route('post')" :active="route().current('post')" class="text-red-600">
-                            <strong>Novo Post</strong>
-                        </BreezeResponsiveNavLink>
                     </div>
 
                     <!-- Responsive Settings Options -->
                     <div class="pt-4 pb-1 border-t border-gray-200">
                         <div class="px-4">
-                            <div class="font-medium text-base text-gray-800">{{ $page.props.auth.user.name }}</div>
+                            <div class="font-medium text-base text-gray-500">{{ $page.props.auth.user.name }}</div>
                             <div class="font-medium text-sm text-gray-500">{{ $page.props.auth.user.email }}</div>
                         </div>
 
-                        <div class="mt-3 space-y-1">
-                            <BreezeResponsiveNavLink :href="route('logout')" method="post" as="button">
+                        <div class="mt-3 space-y-1 border-gray-500 border">
+                            <BreezeResponsiveNavLink :href="route('logout')" method="post" as="button" class=" text-red-400">
                                 Log Out
                             </BreezeResponsiveNavLink>
                         </div>
@@ -107,7 +101,7 @@ const showingNavigationDropdown = ref(false);
             </nav>
 
             <!-- Page Heading -->
-            <header class="bg-white shadow " v-if="$slots.header">
+            <header class="bg-dark-gray-sm shadow " v-if="$slots.header">
                 <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3 px-2">
                     <slot name="header" />
                 </div>
@@ -123,7 +117,7 @@ const showingNavigationDropdown = ref(false);
 
 <style scoped>
 nav, #body {
-    background: #242526
+    background: #18191A
 }
 /*header {*/
 /*    background: #EDF4F5*/
