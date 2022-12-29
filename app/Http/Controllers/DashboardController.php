@@ -15,15 +15,17 @@ class DashboardController extends Controller
         $this->postRepository = $postRepository;
     }
 
-    public function index()
+    public function index(Request $request)
     {
-        $posts = $this->postRepository->get(6,true);
-        return Inertia::render('Dashboard', ['user' => auth()->user()->name,'userId' => auth()->user()->id, 'posts' => $posts]);
-    }
+        $search = '';
+        if($request->buscar) {
+            $posts = $this->postRepository->search($request, 6, true);
+            $search = $request->buscar;
+        } else {
+            $posts = $this->postRepository->get(6,true);
+        }
 
-    public function buscando(Request $request)
-    {
-        $posts = $this->postRepository->search($request, 6, true);
-        return Inertia::render('Dashboard', ['user' => auth()->user()->name, 'posts' => $posts]);
+        return Inertia::render('Dashboard', ['user' => auth()->user()->name,'userId' => auth()->user()->id, 'posts' => $posts,
+        'search' => $search]);
     }
 }

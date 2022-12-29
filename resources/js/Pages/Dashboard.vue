@@ -25,6 +25,7 @@ export default {
         posts: Object,
         errors: Object,
         userId: Number,
+        search: String,
     },
 }
 </script>
@@ -35,7 +36,7 @@ export default {
     <BreezeAuthenticatedLayout>
         <template #header>
             <div class="flex items-center">
-                <Search rota="dashboard" placeholder="Buscar minhas análises"/>
+                <Search rota="dashboard" :search="search" placeholder="Buscar minhas análises"/>
 
                 <div>
                     <label for="post-modal" class="btn-sm mx-2

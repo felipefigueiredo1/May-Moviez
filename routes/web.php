@@ -30,16 +30,10 @@ Route::get('/', function () {
 
 Route::group(['prefix' => 'moviez', 'middleware' => 'auth', 'verified'], function() {
     Route::get('/', [MoviezController::class, 'index'])->name('moviez');
-    Route::post('/', [MoviezController::class, 'store'])->name('moviez.post');
-    Route::get('/buscando', [MoviezController::class, 'index'])->name('moviez');
-    Route::post('/buscando', [MoviezController::class, 'buscando'])->name('post.buscando');
 });
 
 Route::group(['prefix' => 'dashboard', 'middleware' => 'auth', 'verified'], function() {
     Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
-    Route::post('/buscando', [DashboardController::class, 'buscando'])->name('dashboard.buscando');
-    Route::get('/buscando', [DashboardController::class, 'index'])->name('dashboard');
-
 });
 
 
