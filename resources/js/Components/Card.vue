@@ -25,6 +25,12 @@
                                     <button type="submit"><span class="font-bold text-red-700 text-sm" >Excluir</span></button>
                                 </form>
                             </div>
+                            <div class="mr-2">
+                                    <label for="post-modal" class="border-none text-white text-sm cursor-pointer"
+                                    @click="editPost(post)">
+                                        Editar Post
+                                    </label>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -66,6 +72,9 @@ export default {
         },
         setId() {
             this.id = this.posts.id
+        },
+        editPost(post) {
+            this.$emit("editPost", post)
         }
     }
 }
@@ -84,7 +93,7 @@ export default {
 .v-leave-to {
     opacity: 0;
 }
-#card, button, img {
+#card, button, img, label {
     background: #242526
 }
 </style>
