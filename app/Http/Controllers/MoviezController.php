@@ -16,21 +16,17 @@ class MoviezController extends Controller
         $this->postRepository = $postRepository;
     }
 
-    public function index()
+    public function index(Request $request)
     {
-        $posts = $this->postRepository->get();
-        return Inertia::render('Moviez', ['posts' => $posts]);
-    }
+        $search = '';
 
-    public function store(Request $request)
-    {
-        return Inertia::render('Moviez');
-    }
+        if($request->buscar) {
+            $posts = $this->postRepository->search($request, 6, true);
+            $search = $request->buscar;
+        } else {
+            $posts = $this->postRepository->get(6,true);
+        }
 
-    public function buscando(Request $request)
-    {
-        $posts = $this->postRepository->search($request);
-
-        return Inertia::render('Moviez', ['posts' => $posts]);
+        return Inertia::render('Moviez', ['posts' => $posts, 'search' => $search]);
     }
 }
