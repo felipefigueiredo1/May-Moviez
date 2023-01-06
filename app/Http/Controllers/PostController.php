@@ -50,6 +50,25 @@ class PostController extends Controller
         return Inertia::render('PostPage', ['post' => $post, 'user' => $user, 'comments' => $comments]);;
     }
 
+    public function update($id, Request $request)
+    {
+        $post = Post::findOrFail($id);
+        $rules = [
+            'name' => 'required',
+            'body' => 'required',
+            'rating' => 'required',
+        ];
+        $feedback = [
+            'name.required' => 'O campo titulo não pode ser vazio!',
+            'name.body' => 'O campo descrição não pode ser vazio!',
+            'name.rating' => 'O campo nota não pode ser vazio!',
+        ];
+        $request->validate($rules, $feedback);
+        $post->fill($request->all());
+        $post->save();
+        return Redirect::route('dashboard')->with("message", "Editado com sucesso!");
+    }
+
     public function destroy($id)
     {
         try{

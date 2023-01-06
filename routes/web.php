@@ -42,7 +42,7 @@ Route::group(['prefix' => 'post', 'middleware' => 'auth', 'verified'], function(
     Route::get('/', [PostController::class, 'index'])->name('post');
     Route::post('/', [PostController::class, 'store'])->name('post.post');
     Route::get('/{id}', [PostController::class, 'show'])->name('post.show');
-    Route::get('/{id}', [PostController::class, 'edit'])->name('post.edit');
+//    Route::get('/{id}', [PostController::class, 'edit'])->name('post.edit');
     Route::put('/{id}', [PostController::class, 'update'])->name('post.update');
     Route::delete('/{id}', [PostController::class, 'destroy'])->name('post.destroy');
 });

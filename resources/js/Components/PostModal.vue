@@ -12,16 +12,11 @@ export default {
         Head,
         Button
     },
-    data() {
-        return {
-            cover: '',
-            capas: [],
-        }
-    },
     props: {
         user: Number,
         errors: Object,
-        flash: Object
+        flash: Object,
+        dadosPostEditar: Object,
     },
     setup() {
         const form = useForm({
@@ -30,56 +25,36 @@ export default {
             user_id: null,
             movie: null,
             rating: null,
+            id: null,
         })
 
         const closeModalLabel = ref(null)
+        let sendPut = ref(false)
 
         function submit() {
-            form.post('/post', {
-                onSuccess: () => form.reset('name', 'body', 'movie', 'rating'),
-            })
+            if(sendPut && form.id !== undefined) {
+                form.put('/post/'+form.id )
+            } else {
+                form.post('/post', {
+                     onSuccess: () => form.reset('name', 'body', 'movie', 'rating'),
+                })
+            }
+
         }
 
         function closeModal() {
             closeModalLabel.value.click()
         }
 
-        return { form, submit, closeModal, closeModalLabel }
+        return { form, submit, closeModal, closeModalLabel, sendPut }
     },
     mounted() {
         setTimeout(() => {
             this.form.user_id = this.user
         }, 500)
 
-        console.log(this.$page.props.flash.message )
-    },
-    methods: {
-        submitMovie() {
-            self = this;
-
-            self.covers(self.form.name);
-        },
-        set(){
-            self = this;
-            self.capas = [];
-            self.cover.slice(0, 6).forEach(function(nome) {
-                self.capas.push(nome)
-            })
-        },
-        covers(param) {
-            self = this;
-            axios({
-                method: 'GET',
-                url: 'https://online-movie-database.p.rapidapi.com/auto-complete',
-                params: {q: param},
-                headers: {
-                    'X-RapidAPI-Key': '26d3cdf5a6msh6299f99dec84365p1a7ab9jsnee627a64833e',
-                    'X-RapidAPI-Host': 'online-movie-database.p.rapidapi.com'
-                }
-            }).then(function (response) {
-                self.cover = response.data.d;
-                self.set();
-            })
+        if(this.dadosPostEditar) {
+            console.log(this.dadosPostEditar)
         }
     },
     watch: {
@@ -89,6 +64,19 @@ export default {
                     this.closeModal()
                 }
             },
+        },
+        'dadosPostEditar' : {
+            handler(newVal, oldVal) { // watch it
+                this.form.name = newVal.name;
+                this.form.body = newVal.body;
+                this.form.rating = newVal.rating;
+                this.form.id = newVal.id;
+                this.sendPut = true;
+                console.log(this.dadosPostEditar.id)
+                if(this.dadosPostEditar.id === undefined) {
+                    this.sendPut = false;
+                }
+            }
         }
     },
 }
@@ -134,7 +122,7 @@ export default {
             </form>
             <div class="modal-action">
                 <label for="post-modal" ref="closeModalLabel"></label>
-                <Button type="submit" form="post_form" class="rounded-none bg-dark-gray-sm btn-sm">Publicar</Button>
+                <Button type="submit" form="post_form" class="rounded-none bg-dark-gray-sm btn-sm">{{ sendPut ? 'Editar' : 'Publicar' }}</Button>
             </div>
         </div>
     </div>
