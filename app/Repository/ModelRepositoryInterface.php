@@ -4,7 +4,7 @@ namespace App\Repository;
 
 interface ModelRepositoryInterface
 {
-    public function get();
-    public function search($request);
+    public function get($perPage);
+    public function search($request, $perPage);
 }
 

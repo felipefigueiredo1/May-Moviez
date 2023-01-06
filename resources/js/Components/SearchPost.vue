@@ -1,7 +1,6 @@
 <template>
-        <form class="" @submit.prevent="form.post('/'+props.rota+'/buscando')">
-            <input type="text" v-model="form.buscar" :placeholder="placeholder" name="buscar" class="focus:border-red-200 focus:ring-red-500 mr-1 py-0 w-full sm:w-96 rounded">
-<!--            <Button type="submit">Pesquisar</Button>-->
+        <form @submit.prevent="form.get('/'+props.rota)">
+            <input type="text" v-model="form.buscar" :placeholder="placeholder" name="buscar" class="text-white bg-dark-gray-sm focus:border-red-200 placeholder-white focus:ring-red-500 mr-1 py-0 w-full sm:w-96 rounded">
         </form>
 </template>
 <script>
@@ -11,25 +10,16 @@ import { useForm } from '@inertiajs/inertia-vue3'
 export default {
     props: {
         rota: String,
-        placeholder: String
+        placeholder: String,
+        search: String,
     },
     data() {
        return {
            form: this.$inertia.form({
-               buscar: null
+               buscar: this.search
            })
        }
     },
-    // setup (props) {
-    //     const form = useForm({
-    //         buscar: null,
-    //     })
-    //
-    //     const teste = function send() {
-    //     }
-    //
-    // return {form, teste}
-    // },
     components: {
         Button
     },
@@ -42,10 +32,9 @@ export default {
     },
     methods: {
         send() {
-            this.form.post('/'+this.rota+'/buscando')
+            this.form.get('/'+this.rota, {preserveState: true})
         },
     }
-
 }
 </script>
 

@@ -26,7 +26,7 @@ const submit = () => {
 </script>
 
 <template>
-    <BreezeGuestLayout class="bg-gray-200 dark:bg-gray-900">
+    <BreezeGuestLayout class="bg-dark-gray">
         <Head title="Log in" />
 
         <BreezeValidationErrors class="mb-4" />
@@ -37,24 +37,24 @@ const submit = () => {
 
         <form @submit.prevent="submit">
             <div>
-                <BreezeLabel for="email" value="Email" />
+                <BreezeLabel for="email" value="Email" class="text-white"/>
                 <BreezeInput id="email" type="email" class="mt-1 block w-full" v-model="form.email" required autofocus autocomplete="username" />
             </div>
 
             <div class="mt-4">
-                <BreezeLabel for="password" value="Senha" />
+                <BreezeLabel for="password" value="Senha" class="text-white"/>
                 <BreezeInput id="password" type="password" class="mt-1 block w-full" v-model="form.password" required autocomplete="current-password" />
             </div>
 
             <div class="block mt-4">
                 <label class="flex items-center">
                     <BreezeCheckbox name="remember" v-model:checked="form.remember" />
-                    <span class="ml-2 text-sm text-black font-bold">Lembrar</span>
+                    <span class="ml-2 text-sm text-white font-bold">Lembrar</span>
                 </label>
             </div>
 
             <div class="flex items-center justify-end mt-4">
-                <Link v-if="canResetPassword" :href="route('password.request')" class="underline text-sm text-black hover:text-gray-900">
+                <Link v-if="canResetPassword" :href="route('password.request')" class="underline text-sm text-white">
                     Esqueceu sua senha ?
                 </Link>
 
