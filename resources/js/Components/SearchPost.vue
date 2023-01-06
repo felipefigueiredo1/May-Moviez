@@ -35,7 +35,6 @@ export default {
             this.form.get('/'+this.rota, {preserveState: true})
         },
     }
-
 }
 </script>
 
