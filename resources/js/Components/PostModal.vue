@@ -58,13 +58,6 @@ export default {
         }
     },
     watch: {
-        '$page.props.flash.message' : {
-            handler() {
-                if(this.$page.props.flash.message != null) {
-                    this.closeModal()
-                }
-            },
-        },
         'dadosPostEditar' : {
             handler(newVal, oldVal) { // watch it
                 this.form.name = newVal.name;
@@ -87,7 +80,7 @@ export default {
     <input type="checkbox" id="post-modal" class="modal-toggle" />
     <div class="modal rounded-none">
         <div class="modal-box relative bg-dark-gray rounded-none">
-            <label for="post-modal" class="btn btn-sm hover:bg-red-600 bg-dark-gray-sm absolute right-2 top-2">✕</label>
+            <label for="post-modal" class="btn btn-sm hover:bg-red-600 bg-dark-gray-sm absolute right-2 top-2" ref="closeModalLabel" >✕</label>
             <label class="mr-1 text-sm text-white" for="name">Título</label>
             <input type="text"  class="input mt-3  w-full rounded-none max-w focus:border-red-500  input-sm bg-dark-gray-sm text-white" id="name" v-model="form.name">
             <div v-if="errors.name"><span class="text-red-700 text-sm">{{ errors.name }}</span></div>
@@ -121,8 +114,8 @@ export default {
                 </div>
             </form>
             <div class="modal-action">
-                <label for="post-modal" ref="closeModalLabel"></label>
-                <Button type="submit" form="post_form" class="rounded-none bg-dark-gray-sm btn-sm">{{ sendPut ? 'Editar' : 'Publicar' }}</Button>
+                <label for="post-modal" ></label>
+                <Button type="submit" form="post_form" class="rounded-none bg-dark-gray-sm btn-sm" @click="closeModal">{{ sendPut ? 'Editar' : 'Publicar' }}</Button>
             </div>
         </div>
     </div>

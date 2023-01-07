@@ -2,7 +2,7 @@
     <Transition>
         <div class="" v-if="show == true">
             <div class="grid md:grid-cols-2 lg:grid-cols-3 md:gap-4 lg:gap-8 ">
-                <div v-for="(post, index) in posts.data" :key="index" class="w-full rounded overflow-hidden shadow-lg  h-auto mb-3" id="card">
+                <div v-for="(post, index) in posts.data" :key="index" class="w-full rounded overflow-hidden shadow-lg h-auto mb-3" id="card">
                     <div class="px-6 py-4 w-full" >
                         <p class="text-sm italic mb-2 border p-1 border-gray-300 rounded text-white">{{ post.user.name }} <span class="text-gray-400 "> postou...</span></p>
                         <div v-if="post.linkImage">
@@ -19,17 +19,17 @@
                         <div class="text-gray-700 text-sm mt-3 text-white">
                             {{ post.body }}
                         </div>
-                        <div class="flex">
+                        <div class="flex mt-8">
                             <div class="mr-2">
                                 <form @submit.prevent="deletePost(post.id)">
                                     <button type="submit"><span class="font-bold text-red-700 text-sm" >Excluir</span></button>
                                 </form>
                             </div>
                             <div class="mr-2">
-                                    <label for="post-modal" class="border-none text-white text-sm cursor-pointer"
-                                    @click="editPost(post)">
-                                        Editar Post
-                                    </label>
+                                <label for="post-modal" class="border-none text-white text-sm cursor-pointer"
+                                @click="editPost(post)">
+                                    Editar Post
+                                </label>
                             </div>
                         </div>
                     </div>

@@ -17,7 +17,7 @@ export default {
         }
     },
     props: {
-        user: Object,
+        user: Number,
         post: Object,
         comments: Object
     },
@@ -40,52 +40,18 @@ export default {
             this.form.user_id = this.user,
             this.form.post_id = this.post.id
         }, 500)
-        this.star();
-    },
-    watch: {
-      //'form.body':'api',
+        //this.star();
     },
     methods: {
-      api() {
-          let self = this
-
-          // self.starWars.forEach(function(nome) {
-          //     if(nome.name == self.form.body) {
-          //         self.hairName = nome.hair_color;
-          //     }
-          // })
-
-          self.covers(self.form.body)
-
-
-          if(self.form.body == '') {
-              self.hairName = ''
-          }
-
-
-
-          // axios({
-          //     method: 'get',
-          //     url: "https://jsonplaceholder.typicode.com/todos",
-          //     responseType: 'stream'
-          // })
-          //     .then(function (response) {
-          //         //this.form.body = response.data;
-          //         console.log(response)
-          //         self.form.body = response.data;
-          // });
-      },
       star() {
-        let self = this
+        this.$refs.ldsRing.style.display = 'block';
         axios({
             method: 'get',
             url: "https://swapi.dev/api/people",
-            responseType: 'stream'
-        })
-        .then(function (response) {
-            //this.form.body = response.data;
-            console.log(response)
-            self.starWars = response.data.results;
+            })
+        .then((response) => {
+            this.$refs.ldsRing.style.display = 'none';
+            this.starWars = response.data.results;
         });
       },
     },
@@ -104,45 +70,38 @@ export default {
 <template>
     <BreezeAuthenticatedLayout>
         <Head title="Page" />
-        <div class="">
-            <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-                <div class="overflow-hidden shadow-sm sm:rounded-sm">
-                    <div class="p-6 bg-white border-b border-gray-200">
-                        <div class="flex  flex-wrap justify-between mb-5">
-                            <h1 class="text-3xl mb-2" style="font-family: 'Helvetica Neue'">{{ post.name }}</h1>
-                            <div class="flex">
-                                <div v-for="n in post.rating">
-                                    <span><img src="/img/star.png" style="height:35px;"></span>
-                                </div>
+        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 mt-4 text-white">
+            <div class="overflow-hidden shadow-sm sm:rounded-sm">
+                <div class="p-6 bg-dark-gray-sm rounded">
+                    <div class="flex flex-wrap justify-between mb-5">
+                        <h1 class="text-3xl mb-2" style="font-family: 'Helvetica Neue'">{{ post.name }}</h1>
+                        <div class="flex">
+                            <div v-for="n in post.rating">
+                                <span><img src="/img/star.png" style="height:35px;"></span>
                             </div>
                         </div>
-                        <div style="width:700px">
-                            <p class="mt-6 mb-4">{{ post.body }}</p>
-                        </div>
-<!--                        <div class="flex flex-wrap gap-5">-->
-<!--                            <img :src="post.linkImage" class="rounded-sm" style="max-height:350px; width:330px;">-->
-<!--                            -->
-<!--                        </div>-->
+                    </div>
+                    <div style="width:700px">
+                        <p class="mt-6 mb-4">{{ post.body }}</p>
+                        {{ starWars.length === 0 ? '' : starWars[0]  }}
+                        <div id="loading" class="lds-ring" style="display:none;" ref="ldsRing"><div></div><div></div><div></div><div></div></div>
                     </div>
                 </div>
             </div>
-            <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 mt-3">
-                <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-                    <div class="p-6 bg-white border-b border-gray-200">
-                        <div >
-                            <Comment :comments="comments" :user_id="user" :post_user_id="post.user_id"/>
-                        </div>
-                        <div>
-                            <form @submit.prevent="submitComment" >
-                                <label for="message" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-400">Comente Aqui!</label>
-                                <textarea id="message" rows="4" class="block p-2.5 w-full text-sm text-gray-900
-                                bg-gray-50 rounded-lg border border-gray-300 focus:ring-red-200 focus:border-red-200
-                                dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white
-                                dark:focus:ring-blue-500
-                                dark:focus:border-blue-500" placeholder="Deixe um comentario..." v-model="form.body"></textarea>
-                                <ButtonComment type="submit" class="mt-2 ml-0" texto="Comentar" />
-                            </form>
-                        </div>
+        </div>
+        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 mt-3">
+            <div class="overflow-hidden shadow-sm sm:rounded-lg">
+                <div class="p-6 bg-dark-gray-sm ">
+
+                        <Comment :comments="comments" :user_id="user" :post_user_id="post.user_id"/>
+
+                    <div>
+                        <form @submit.prevent="submitComment" >
+                            <label for="message" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-400">Comente Aqui!</label>
+                            <textarea id="message" rows="4" class="w-full rounded bg-dark-gray-es text-white focus:border-red-500 focus:ring-red-700"
+                                      placeholder="Deixe um comentario..." v-model="form.body"></textarea>
+                            <ButtonComment type="submit" class="mt-2 ml-0" color="text-white" texto="Comentar" />
+                        </form>
                     </div>
                 </div>
             </div>
@@ -153,5 +112,40 @@ export default {
 <style scoped>
 .bg-white-ice{
     background: #EDF4F5
+}
+.lds-ring {
+    display: inline-block;
+    position: relative;
+    width: 64px;
+    height: 64px;
+}
+.lds-ring div {
+    box-sizing: border-box;
+    display: block;
+    position: absolute;
+    width: 51px;
+    height: 51px;
+    margin: 6px;
+    border: 6px solid #ccc;
+    border-radius: 50%;
+    animation: lds-ring 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
+    border-color: #ccc transparent transparent transparent;
+}
+.lds-ring div:nth-child(1) {
+    animation-delay: -0.45s;
+}
+.lds-ring div:nth-child(2) {
+    animation-delay: -0.3s;
+}
+.lds-ring div:nth-child(3) {
+    animation-delay: -0.15s;
+}
+@keyframes lds-ring {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
 }
 </style>

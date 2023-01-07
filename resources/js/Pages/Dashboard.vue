@@ -45,7 +45,7 @@ export default {
 
     <BreezeAuthenticatedLayout>
         <template #header>
-            <div class="flex items-center">
+            <div class="flex items-center flex-wrap">
                 <Search rota="dashboard" :search="search" placeholder="Buscar minhas análises"/>
 
                 <div>
@@ -53,7 +53,8 @@ export default {
                      font-bold border border-red-800 bg-red-500 cursor-pointer text-white">
                         Novo Post</label>
                 </div>
-                <div v-if="$page.props.flash.message"  class="ml-4 bg-red-500 px-1 rounded font-bold">
+                <div v-if="$page.props.flash.message"  class="px-2 text-sm
+                     font-bold border border-red-800 bg-red-500 text-white">
                     {{ $page.props.flash.message }}
                 </div>
             </div>

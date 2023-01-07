@@ -22,34 +22,34 @@ const submit = () => {
 </script>
 
 <template>
-    <BreezeGuestLayout>
-        <Head title="Register" />
+    <BreezeGuestLayout class="bg-dark-gray">
+        <Head title="Register"/>
 
         <BreezeValidationErrors class="mb-4" />
 
-        <form @submit.prevent="submit">
+        <form @submit.prevent="submit" class="">
             <div>
-                <BreezeLabel for="name" value="Name" />
+                <BreezeLabel for="name" value="Name"  class="text-white"/>
                 <BreezeInput id="name" type="text" class="mt-1 block w-full" v-model="form.name" required autofocus autocomplete="name" />
             </div>
 
             <div class="mt-4">
-                <BreezeLabel for="email" value="Email" />
+                <BreezeLabel for="email" value="Email"  class="text-white"/>
                 <BreezeInput id="email" type="email" class="mt-1 block w-full" v-model="form.email" required autocomplete="username" />
             </div>
 
             <div class="mt-4">
-                <BreezeLabel for="password" value="Password" />
+                <BreezeLabel for="password" value="Password"  class="text-white"/>
                 <BreezeInput id="password" type="password" class="mt-1 block w-full" v-model="form.password" required autocomplete="new-password" />
             </div>
 
             <div class="mt-4">
-                <BreezeLabel for="password_confirmation" value="Confirm Password" />
+                <BreezeLabel for="password_confirmation" value="Confirm Password"  class="text-white"/>
                 <BreezeInput id="password_confirmation" type="password" class="mt-1 block w-full" v-model="form.password_confirmation" required autocomplete="new-password" />
             </div>
 
             <div class="flex items-center justify-end mt-4">
-                <Link :href="route('login')" class="underline text-sm text-gray-600 hover:text-gray-900">
+                <Link :href="route('login')" class="underline text-sm text-white text-gray-600 hover:text-red-500">
                     Already registered?
                 </Link>
 
