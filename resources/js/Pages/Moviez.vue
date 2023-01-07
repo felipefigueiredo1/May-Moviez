@@ -15,7 +15,8 @@ export default {
         user: String,
         posts: Object,
         postsSearch: Object,
-        response: String
+        response: String,
+        userId: Number
     }
 }
 
@@ -31,7 +32,7 @@ export default {
     </template>
 
     <div class="py-12 max-w-7xl mx-auto sm:px-6 lg:px-8">
-        <Card :posts="posts" :response="response"/>
+        <Card :posts="posts" :response="response" :userOwner="userId"/>
     </div>
 </BreezeAuthenticatedLayout>
 

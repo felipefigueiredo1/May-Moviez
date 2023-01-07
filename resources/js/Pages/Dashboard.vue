@@ -47,7 +47,6 @@ export default {
         <template #header>
             <div class="flex items-center flex-wrap">
                 <Search rota="dashboard" :search="search" placeholder="Buscar minhas análises"/>
-
                 <div>
                     <label @click="removeDadosPost" for="post-modal" class="btn-sm mx-2
                      font-bold border border-red-800 bg-red-500 cursor-pointer text-white">
@@ -63,7 +62,7 @@ export default {
         <div class="">
             <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
                 <h3 class="text-center p-3 text-red-600"><strong>Suas analises</strong></h3>
-                <Card :posts="posts" :carregar="carregarCard" @editPost="pegarDadosPost($event)"/>
+                <Card :posts="posts" :carregar="carregarCard" @editPost="pegarDadosPost($event)" :userOwner="userId"/>
             </div>
         </div>
     </BreezeAuthenticatedLayout>

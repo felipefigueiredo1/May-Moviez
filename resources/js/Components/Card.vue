@@ -19,7 +19,7 @@
                         <div class="text-gray-700 text-sm mt-3 text-white">
                             {{ post.body }}
                         </div>
-                        <div class="flex mt-8">
+                        <div class="flex mt-8" v-if="userOwner == post.user_id">
                             <div class="mr-2">
                                 <form @submit.prevent="deletePost(post.id)">
                                     <button type="submit"><span class="font-bold text-red-700 text-sm" >Excluir</span></button>
@@ -59,7 +59,8 @@ export default {
     props: {
         posts: Object,
         response: String,
-        carregar: Boolean
+        carregar: Boolean,
+        userOwner: String
     },
     mounted() {
         this.setId();

@@ -21,12 +21,11 @@ class MoviezController extends Controller
         $search = '';
 
         if($request->buscar) {
-            $posts = $this->postRepository->search($request, 6, true);
+            $posts = $this->postRepository->search($request, 6);
             $search = $request->buscar;
         } else {
-            $posts = $this->postRepository->get(6,true);
+            $posts = $this->postRepository->get(6);
         }
-
-        return Inertia::render('Moviez', ['posts' => $posts, 'search' => $search]);
+        return Inertia::render('Moviez', ['posts' => $posts, 'userId' => auth()->user()->id, 'search' => $search]);
     }
 }
