@@ -69,12 +69,12 @@ export default {
 
 <template>
     <BreezeAuthenticatedLayout>
-        <Head title="Page" />
+        <Head :title="post.name" />
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 mt-4 text-white">
             <div class="overflow-hidden shadow-sm sm:rounded-sm">
                 <div class="p-6 bg-dark-gray-sm rounded">
                     <div class="flex flex-wrap justify-between mb-5">
-                        <h1 class="text-3xl mb-2" style="font-family: 'Helvetica Neue'">{{ post.name }}</h1>
+                        <h1 class="text-3xl mb-2">{{ post.name }}</h1>
                         <div class="flex">
                             <div v-for="n in post.rating">
                                 <span><img src="/img/star.png" style="height:35px;"></span>
@@ -92,12 +92,9 @@ export default {
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 mt-3">
             <div class="overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 bg-dark-gray-sm ">
-
                         <Comment :comments="comments" :user_id="user" :post_user_id="post.user_id"/>
-
                     <div>
                         <form @submit.prevent="submitComment" >
-                            <label for="message" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-400">Comente Aqui!</label>
                             <textarea id="message" rows="4" class="w-full rounded bg-dark-gray-es text-white focus:border-red-500 focus:ring-red-700"
                                       placeholder="Deixe um comentario..." v-model="form.body"></textarea>
                             <ButtonComment type="submit" class="mt-2 ml-0" color="text-white" texto="Comentar" />

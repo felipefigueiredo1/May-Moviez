@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Comment;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Support\Facades\Redirect;
 use Inertia\Inertia;
 use Illuminate\Http\Request;
@@ -10,12 +11,19 @@ use App\Models\Post;
 
 class PostController extends Controller
 {
-    public function index()
+    public object $post;
+
+    public function __construct(Post $post)
     {
-        return Post::all();
+        $this->post = $post;
     }
 
-    public function store(Request $request)
+    public function index(): \Illuminate\Database\Eloquent\Collection
+    {
+        return $this->post->all();
+    }
+
+    public function store(Request $request): \Illuminate\Http\RedirectResponse
     {
         $rules = [
             'name' => 'required',
@@ -44,10 +52,15 @@ class PostController extends Controller
 
     public function show($id)
     {
-        $user = auth()->user()->id;
-        $post = Post::with('comments')->findOrFail($id);
-        $comments = $post->comments()->with('user')->paginate(5);
-        return Inertia::render('PostPage', ['post' => $post, 'user' => $user, 'comments' => $comments]);;
+        try {
+            $user = auth()->user()->id;
+            $post = Post::with('comments')->findOrFail($id);
+            $comments = $post->comments()->with('user')->with('commentLikes')->paginate(5);
+
+            return Inertia::render('PostPage', ['post' => $post, 'user' => $user, 'comments' => $comments]);;
+        } catch(ModelNotFoundException) {
+            abort(403);
+        }
     }
 
     public function update($id, Request $request)
@@ -69,11 +82,11 @@ class PostController extends Controller
         return Redirect::route('dashboard')->with("message", "Editado com sucesso!");
     }
 
-    public function destroy($id)
+    public function destroy($id): \Illuminate\Http\RedirectResponse
     {
         try{
             Post::destroy($id);
-            return back();
+            return back()->with("message", "Excluido com sucesso!");
         } catch(\Throwable $th) {
             return redirect()->back()->with("message", "Não foi possivel excluir essa publicação.");
         }

@@ -33,12 +33,12 @@ class CommentController extends Controller
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\RedirectResponse
      */
-    public function store(Request $request)
+    public function store(Request $request): \Illuminate\Http\RedirectResponse
     {
         Comment::create($request->all());
-        return Redirect::route('post.show', $request->post_id);
+        return Redirect::back();
     }
 
     /**
@@ -79,14 +79,11 @@ class CommentController extends Controller
      * Remove the specified resource from storage.
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\RedirectResponse
      */
-    public function destroy($id)
+    public function destroy($id): \Illuminate\Http\RedirectResponse
     {
-        $comment = Comment::findOrFail($id);
-        $post_id = $comment->post_id;
-        $comment->delete();
-
-        return Redirect::route('post.show', $post_id);
+        Comment::findOrFail($id)->delete();
+        return Redirect::back();
     }
 }

@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CommentLikeController;
 use Inertia\Inertia;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Foundation\Application;
@@ -42,11 +43,12 @@ Route::group(['prefix' => 'post', 'middleware' => 'auth', 'verified'], function(
     Route::get('/', [PostController::class, 'index'])->name('post');
     Route::post('/', [PostController::class, 'store'])->name('post.post');
     Route::get('/{id}', [PostController::class, 'show'])->name('post.show');
-//    Route::get('/{id}', [PostController::class, 'edit'])->name('post.edit');
     Route::put('/{id}', [PostController::class, 'update'])->name('post.update');
     Route::delete('/{id}', [PostController::class, 'destroy'])->name('post.destroy');
 });
 
 Route::resource('comment', CommentController::class)->middleware(['auth', 'verified']);
+
+Route::resource('commentLike', CommentLikeController::class)->middleware(['auth', 'verified']);
 
 require __DIR__.'/auth.php';
