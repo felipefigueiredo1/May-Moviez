@@ -30,6 +30,9 @@ export default {
         removeDadosPost() {
             this.dadosPostEditar = {}
         }
+    },
+    mounted() {
+        this.$swal('Hello Vue world!!!');
     }
 }
 </script>
