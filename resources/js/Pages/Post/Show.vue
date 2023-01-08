@@ -4,22 +4,66 @@ import Button from '@/Components/Button.vue';
 import { Head, Link } from '@inertiajs/inertia-vue3';
 import { reactive } from 'vue';
 import { Inertia } from "@inertiajs/inertia";
-import Comment from "@/Components/Comment.vue"
-import ButtonComment from "@/Components/ButtonComment.vue";
+import Comment from "@/Components/Post/Comment/Comment.vue"
+import ButtonComment from "@/Components/Post/Comment/Button.vue";
 
 export default {
+    components: {
+        ButtonComment,
+        BreezeAuthenticatedLayout,
+        Head,
+        Link,
+        Button,
+        Comment
+    },
     data() {
         return {
             starWars: [],
             hairName: '',
             cover: [],
             movie: '',
+            formLike: this.$inertia.form({
+                user_id: null,
+                post_id: null,
+            }),
         }
     },
     props: {
         user: Number,
         post: Object,
         comments: Object
+    },
+    methods: {
+        star() {
+            this.$refs.ldsRing.style.display = 'block';
+            axios({
+                method: 'get',
+                url: "https://swapi.dev/api/people",
+            })
+            .then((response) => {
+                this.$refs.ldsRing.style.display = 'none';
+                this.starWars = response.data.results;
+            });
+        },
+        likePost(id) {
+            this.formLike.post_id = id;
+            this.formLike.user_id = this.user;
+            this.formLike.post('/postLike');
+        },
+        dislikePost(likes) {
+            const postId = likes.filter(like => like.user_id === this.user);
+            this.formLike.delete('/postLike/'+postId[0].id);
+        },
+        alreadyLiked(likes) {
+            return likes.some(like => like.user_id === this.user);
+        }
+    },
+    mounted() {
+        setTimeout(() => {
+            this.form.user_id = this.user,
+                this.form.post_id = this.post.id
+        }, 500)
+        this.star();
     },
     setup() {
         const form = reactive({
@@ -32,37 +76,8 @@ export default {
             Inertia.post('/comment', form,  {preserveState: false, preserveScroll: true})
             this.form.body = ''
         }
-
         return { form, submitComment }
     },
-    mounted() {
-        setTimeout(() => {
-            this.form.user_id = this.user,
-            this.form.post_id = this.post.id
-        }, 500)
-        //this.star();
-    },
-    methods: {
-      star() {
-        this.$refs.ldsRing.style.display = 'block';
-        axios({
-            method: 'get',
-            url: "https://swapi.dev/api/people",
-            })
-        .then((response) => {
-            this.$refs.ldsRing.style.display = 'none';
-            this.starWars = response.data.results;
-        });
-      },
-    },
-    components: {
-        ButtonComment,
-        BreezeAuthenticatedLayout,
-        Head,
-        Link,
-        Button,
-        Comment
-    }
 }
 
 </script>
@@ -82,7 +97,16 @@ export default {
                         </div>
                     </div>
                     <div style="width:700px">
-                        <p class="mt-6 mb-4">{{ post.body }}</p> {{ post.post_likes.length }}
+                        <p class="mt-6 mb-4">{{ post.body }}</p>
+                        <div class="flex gap-2 text-white">
+                            <form @submit.prevent="likePost(post.id)" v-if="!alreadyLiked(post.post_likes)">
+                                <button type="submit"><i class="fa-regular fa-thumbs-up cursor-pointer" ></i></button>
+                            </form>
+                            <form @submit.prevent="dislikePost(post.post_likes)" v-else>
+                                <button type="submit"><i class="fa-regular fa-thumbs-down cursor-pointer" ></i></button>
+                            </form>
+                            {{ post.post_likes.length }}
+                        </div>
                         {{ starWars.length === 0 ? '' : starWars[0]  }}
                         <div id="loading" class="lds-ring" style="display:none;" ref="ldsRing"><div></div><div></div><div></div><div></div></div>
                     </div>
@@ -92,7 +116,7 @@ export default {
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 mt-3">
             <div class="overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 bg-dark-gray-sm ">
-                        <Comment :comments="comments" :user_id="user" :post_user_id="post.user_id"/>
+                    <Comment :comments="comments" :user_id="user" :post_user_id="post.user_id"/>
                     <div>
                         <form @submit.prevent="submitComment" >
                             <textarea id="message" rows="4" class="w-full rounded bg-dark-gray-es text-white focus:border-red-500 focus:ring-red-700"

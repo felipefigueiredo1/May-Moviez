@@ -27,11 +27,11 @@ const showingNavigationDropdown = ref(false);
 
                             <!-- Navigation Links -->
                             <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex ">
+                                <BreezeNavLink :href="route('home')" :active="route().current('home')" class="text-red-600">
+                                    Home
+                                </BreezeNavLink>
                                 <BreezeNavLink :href="route('dashboard')" :active="route().current('dashboard')" class="text-red-600">
                                     Dashboard
-                                </BreezeNavLink>
-                                <BreezeNavLink :href="route('moviez')" :active="route().current('moviez')" class="text-red-600">
-                                    Moviez
                                 </BreezeNavLink>
                             </div>
                         </div>
@@ -76,11 +76,11 @@ const showingNavigationDropdown = ref(false);
                 <!-- Responsive Navigation Menu -->
                 <div :class="{'block': showingNavigationDropdown, 'hidden': ! showingNavigationDropdown}" class="sm:hidden">
                     <div class="pt-2 pb-3 space-y-1">
-                        <BreezeResponsiveNavLink :href="route('dashboard')" :active="route().current('dashboard')"  class="text-red-600">
-                            Dashboard
+                        <BreezeResponsiveNavLink :href="route('home')" :active="route().current('home')"  class="text-red-600">
+                            Home
                         </BreezeResponsiveNavLink>
-                        <BreezeResponsiveNavLink :href="route('moviez')" :active="route().current('moviez')" class="text-red-600">
-                            Moviez
+                        <BreezeResponsiveNavLink :href="route('dashboard')" :active="route().current('dashboard')" class="text-red-600">
+                            Dashboard
                         </BreezeResponsiveNavLink>
                     </div>
 

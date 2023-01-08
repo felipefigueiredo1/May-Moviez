@@ -1,7 +1,7 @@
 <script>
 import {Inertia} from "@inertiajs/inertia";
 import Pagination  from '@/Components/Pagination.vue';
-import ButtonComment from "@/Components/ButtonComment.vue";
+import ButtonComment from "@/Components/Post/Comment/Button.vue";
 
 export default {
     props: ['comments', 'user_id', 'post_user_id'],
@@ -32,7 +32,6 @@ export default {
         },
         alreadyLiked(likes) {
             return  likes.some(like => like.user_id === this.user_id);
-
         }
     }
 }

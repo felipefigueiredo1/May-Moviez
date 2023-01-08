@@ -60,7 +60,7 @@ export default {
         posts: Object,
         response: String,
         carregar: Boolean,
-        userOwner: String
+        userOwner: Number
     },
     mounted() {
         this.setId();

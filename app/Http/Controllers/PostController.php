@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Comment;
+use App\Repository\PostRepository;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Support\Facades\Redirect;
 use Inertia\Inertia;
@@ -13,14 +14,25 @@ class PostController extends Controller
 {
     public object $post;
 
-    public function __construct(Post $post)
+    public object $postRepository;
+
+    public function __construct(PostRepository $postRepository)
     {
-        $this->post = $post;
+        $this->postRepository = $postRepository;
     }
 
-    public function index(): \Illuminate\Database\Eloquent\Collection
+    public function index(Request $request)
     {
-        return $this->post->all();
+        $search = '';
+        if($request->buscar) {
+            $posts = $this->postRepository->search($request, 6, true);
+            $search = $request->buscar;
+        } else {
+            $posts = $this->postRepository->get(6,true);
+        }
+
+        return Inertia::render('Home', ['user' => auth()->user()->name,'userId' => auth()->user()->id, 'posts' => $posts,
+            'search' => $search]);
     }
 
     public function store(Request $request): \Illuminate\Http\RedirectResponse
@@ -44,9 +56,9 @@ class PostController extends Controller
                 'rating' => $request->rating
             ]);
 
-            return Redirect::route('dashboard')->with("message", "Publicado com sucesso!");
+            return back()->with("message", "Publicado com sucesso!");
         } catch(\Throwable $th) {
-            return Redirect::route('dashboard')->with("message", "Ocorreu algum erro contate o administrador.");
+            return back()->with("message", "Ocorreu algum erro contate o administrador.");
         }
     }
 
@@ -57,7 +69,7 @@ class PostController extends Controller
             $post = Post::with('comments')->with('postLikes')->findOrFail($id);
             $comments = $post->comments()->with('user')->with('commentLikes')->paginate(5);
 
-            return Inertia::render('PostPage', ['post' => $post, 'user' => $user, 'comments' => $comments]);;
+            return Inertia::render('Post/Show', ['post' => $post, 'user' => $user, 'comments' => $comments]);;
         } catch(ModelNotFoundException) {
             abort(403);
         }
@@ -80,7 +92,7 @@ class PostController extends Controller
             $request->validate($rules, $feedback);
             $post->fill($request->all());
             $post->save();
-            return Redirect::route('dashboard')->with("message", "Editado com sucesso!");
+            return back()->with("message", "Editado com sucesso!");
         } catch(\Exception) {
             return redirect()->back()->with("message", "Não foi possivel editar essa publicação.");
         }

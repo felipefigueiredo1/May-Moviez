@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\CommentLike;
+use App\Models\PostLike;
 use Illuminate\Http\Request;
 
 class PostLikeController extends Controller
@@ -16,7 +16,7 @@ class PostLikeController extends Controller
     public function store(Request $request)
     {
         try {
-            CommentLike::create($request->all());
+            PostLike::create($request->all());
             return back();
         } catch(\Exception) {
             return back()->with("message", "Ocorreu algum erro ao tentar inserir o comentario, contate o administrador.");
@@ -32,7 +32,7 @@ class PostLikeController extends Controller
     public function destroy($id)
     {
         try {
-            CommentLike::findOrFail($id)->delete();
+            PostLike::findOrFail($id)->delete();
             return back();
         } catch(\Exception) {
             return back()->with("message", "Ocorreu algum erro ao tentar excluir o comentario, contate o administrador.");
