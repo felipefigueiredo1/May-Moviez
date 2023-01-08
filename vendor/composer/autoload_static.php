@@ -554,6 +554,7 @@ class ComposerStaticInit5fd9062a5e6c0e2c7c0d6949da65822d
         'App\\Http\\Controllers\\Auth\\RegisteredUserController' => __DIR__ . '/../..' . '/app/Http/Controllers/Auth/RegisteredUserController.php',
         'App\\Http\\Controllers\\Auth\\VerifyEmailController' => __DIR__ . '/../..' . '/app/Http/Controllers/Auth/VerifyEmailController.php',
         'App\\Http\\Controllers\\CommentController' => __DIR__ . '/../..' . '/app/Http/Controllers/CommentController.php',
+        'App\\Http\\Controllers\\CommentLikeController' => __DIR__ . '/../..' . '/app/Http/Controllers/CommentLikeController.php',
         'App\\Http\\Controllers\\Controller' => __DIR__ . '/../..' . '/app/Http/Controllers/Controller.php',
         'App\\Http\\Controllers\\DashboardController' => __DIR__ . '/../..' . '/app/Http/Controllers/DashboardController.php',
         'App\\Http\\Controllers\\MoviezController' => __DIR__ . '/../..' . '/app/Http/Controllers/MoviezController.php',

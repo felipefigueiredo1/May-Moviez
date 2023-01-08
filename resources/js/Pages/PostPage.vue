@@ -82,7 +82,7 @@ export default {
                         </div>
                     </div>
                     <div style="width:700px">
-                        <p class="mt-6 mb-4">{{ post.body }}</p>
+                        <p class="mt-6 mb-4">{{ post.body }}</p> {{ post.post_likes.length }}
                         {{ starWars.length === 0 ? '' : starWars[0]  }}
                         <div id="loading" class="lds-ring" style="display:none;" ref="ldsRing"><div></div><div></div><div></div><div></div></div>
                     </div>
