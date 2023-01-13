@@ -63,7 +63,7 @@ export default {
             this.form.user_id = this.user,
                 this.form.post_id = this.post.id
         }, 500)
-        this.star();
+        //this.star();
     },
     setup() {
         const form = reactive({
@@ -96,8 +96,11 @@ export default {
                             </div>
                         </div>
                     </div>
-                    <div style="width:700px">
-                        <p class="mt-6 mb-4">{{ post.body }}</p>
+                    <div >
+                        <div class="flex ">
+                            <p class="mt-6 mb-4">{{ post.body }}</p>
+                            <img src="/img/matrix.jpg" width="250">
+                        </div>
                         <div class="flex gap-2 text-white">
                             <form @submit.prevent="likePost(post.id)" v-if="!alreadyLiked(post.post_likes)">
                                 <button type="submit"><i class="fa-regular fa-thumbs-up cursor-pointer" ></i></button>

@@ -40,6 +40,9 @@ defineProps({
             <Link v-if="$page.props.auth.user" :href="route('dashboard')" class="text-sm text-red-700 underline">
                 <img src="/img/logo_may_moviez.svg" style="width:450px;" class="mt-7 bg-black p-3 rounded-sm">
             </Link>
+            <template v-else>
+                <img src="/img/logo_may_moviez.svg" style="width:450px;" class="mt-7 bg-black p-3 rounded-sm">
+            </template>
         </div>
     </div>
 
