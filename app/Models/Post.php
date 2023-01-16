@@ -14,7 +14,7 @@ class Post extends Model
         'name',
         'body',
         'user_id',
-        'linkImage',
+        'img_path',
         'rating',
     ];
 

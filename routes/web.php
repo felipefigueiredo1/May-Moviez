@@ -6,7 +6,6 @@ use Inertia\Inertia;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Foundation\Application;
 use App\Http\Controllers\PostController;
-use App\Http\Controllers\MoviezController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\CommentController;
 
@@ -30,9 +29,6 @@ Route::get('/', function () {
     ]);
 })->name('welcome');
 
-Route::group(['prefix' => 'moviez', 'middleware' => 'auth', 'verified'], function() {
-    Route::get('/', [MoviezController::class, 'index'])->name('moviez');
-});
 
 Route::group(['prefix' => 'dashboard', 'middleware' => 'auth', 'verified'], function() {
     Route::get('/', [DashboardController::class, 'index'])->name('dashboard');

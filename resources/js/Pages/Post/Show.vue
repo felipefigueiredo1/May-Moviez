@@ -2,7 +2,7 @@
 import BreezeAuthenticatedLayout from '@/Layouts/Authenticated.vue';
 import Button from '@/Components/Button.vue';
 import { Head, Link } from '@inertiajs/inertia-vue3';
-import { reactive } from 'vue';
+import { reactive, computed } from 'vue';
 import { Inertia } from "@inertiajs/inertia";
 import Comment from "@/Components/Post/Comment/Comment.vue"
 import ButtonComment from "@/Components/Post/Comment/Button.vue";
@@ -31,7 +31,7 @@ export default {
     props: {
         user: Number,
         post: Object,
-        comments: Object
+        comments: Object,
     },
     methods: {
         star() {
@@ -65,7 +65,7 @@ export default {
         }, 500)
         //this.star();
     },
-    setup() {
+    setup(props) {
         const form = reactive({
             body: null,
             user_id: null,
@@ -76,7 +76,15 @@ export default {
             Inertia.post('/comment', form,  {preserveState: false, preserveScroll: true})
             this.form.body = ''
         }
-        return { form, submitComment }
+
+        const pathToImg = computed(() => {
+            if(props.post.img_path) {
+                console.log(props.post.img_path);
+                return "/storage/img/"+props.post.img_path.split("/")[2];
+            }
+        })
+
+        return { form, submitComment, pathToImg }
     },
 }
 
@@ -97,9 +105,9 @@ export default {
                         </div>
                     </div>
                     <div >
-                        <div class="flex ">
+                        <div class="flex justify-between">
                             <p class="mt-6 mb-4">{{ post.body }}</p>
-                            <img src="/img/matrix.jpg" width="250">
+                            <img :src="pathToImg" width="250">
                         </div>
                         <div class="flex gap-2 text-white">
                             <form @submit.prevent="likePost(post.id)" v-if="!alreadyLiked(post.post_likes)">

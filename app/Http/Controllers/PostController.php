@@ -2,10 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Comment;
 use App\Repository\PostRepository;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
-use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\Storage;
 use Inertia\Inertia;
 use Illuminate\Http\Request;
 use App\Models\Post;
@@ -16,9 +15,9 @@ class PostController extends Controller
 
     public object $postRepository;
 
-    public function __construct(PostRepository $postRepository)
+    public function __construct()
     {
-        $this->postRepository = $postRepository;
+        $this->postRepository = new PostRepository(new Post());
     }
 
     public function index(Request $request)
@@ -37,23 +36,19 @@ class PostController extends Controller
 
     public function store(Request $request): \Illuminate\Http\RedirectResponse
     {
-        $rules = [
-            'name' => 'required',
-            'body' => 'required',
-            'rating' => 'required',
-        ];
-        $feedback = [
-            'name.required' => 'O campo titulo não pode ser vazio!',
-            'name.body' => 'O campo descrição não pode ser vazio!',
-            'name.rating' => 'O campo nota não pode ser vazio!',
-        ];
-        $request->validate($rules, $feedback);
+        $request->validate($this->postRepository->model->rules(), $this->postRepository->model->feedback());
         try {
+
+            if($request->hasFile('img')) {
+                $path = $request->file('img')->store('public/img');
+            }
+
             Post::create([
                 'name' => $request->name,
                 'user_id' => $request->user_id,
                 'body' => $request->body,
-                'rating' => $request->rating
+                'rating' => $request->rating,
+                'img_path' => $path,
             ]);
 
             return back()->with("message", "Publicado com sucesso!");
@@ -69,7 +64,7 @@ class PostController extends Controller
             $post = Post::with('comments')->with('postLikes')->findOrFail($id);
             $comments = $post->comments()->with('user')->with('commentLikes')->paginate(5);
 
-            return Inertia::render('Post/Show', ['post' => $post, 'user' => $user, 'comments' => $comments]);;
+            return Inertia::render('Post/Show', ['post' => $post, 'user' => $user, 'comments' => $comments]);
         } catch(ModelNotFoundException) {
             abort(403);
         }
@@ -79,17 +74,17 @@ class PostController extends Controller
     {
         try {
             $post = Post::findOrFail($id);
-            $rules = [
-                'name' => 'required',
-                'body' => 'required',
-                'rating' => 'required',
-            ];
-            $feedback = [
-                'name.required' => 'O campo titulo não pode ser vazio!',
-                'name.body' => 'O campo descrição não pode ser vazio!',
-                'name.rating' => 'O campo nota não pode ser vazio!',
-            ];
-            $request->validate($rules, $feedback);
+            $request->validate($this->postRepository->model->rules(), $this->postRepository->model->feedback());
+
+            if($request->hasFile('img')) {
+                if($post->img_path) {
+                    $path = $request->file('img')->storeAs('public/img', explode("/", $post->img_path)[2]);
+                } else {
+                    $path = $request->file('img')->store('public/img');
+                }
+                $request->merge(['img_path' => $path]);
+            }
+
             $post->fill($request->all());
             $post->save();
             return back()->with("message", "Editado com sucesso!");
@@ -102,13 +97,11 @@ class PostController extends Controller
     public function destroy($id): \Illuminate\Http\RedirectResponse
     {
         try{
+            Storage::delete(Post::findOrFail($id)->img_path);
             Post::destroy($id);
             return back()->with("message", "Excluido com sucesso!");
         } catch(\Throwable $th) {
             return redirect()->back()->with("message", "Não foi possivel excluir essa publicação.");
         }
     }
-
-
-
 }

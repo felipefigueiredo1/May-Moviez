@@ -1,7 +1,7 @@
 <script>
 import BreezeAuthenticatedLayout from '@/Layouts/Authenticated.vue';
 import Button from '@/Components/Button.vue'
-import { Head } from '@inertiajs/inertia-vue3';
+import { Head, } from '@inertiajs/inertia-vue3';
 import { useForm } from '@inertiajs/inertia-vue3';
 import { ref, reactive } from 'vue'
 
@@ -17,7 +17,7 @@ export default {
         flash: Object,
         dadosPostEditar: Object,
     },
-    setup(props) {
+    setup() {
         const form = useForm({
             name: null,
             body: null,
@@ -25,19 +25,18 @@ export default {
             movie: null,
             rating: null,
             id: null,
-            img: {
-                name: null,
-                link: null,
-            },
+            img: {},
+            img_path: null,
+            _method: 'post',
         })
 
-        let urlFile = reactive({link: null});
         const closeModalLabel = ref(null)
         let sendPut = ref(false)
 
         async function submit() {
             if(sendPut && form.id !== undefined) {
-                form.put('/post/'+form.id )
+                form._method = 'put';
+                form.post('/post/'+form.id)
             } else {
                 await form.post('/post', {
                      onSuccess: () => {form.reset('name', 'body', 'movie', 'rating'); closeModal()},
@@ -51,10 +50,11 @@ export default {
 
         function onFileChange(e) {
             const file = e.target.files[0];
-            urlFile.link = URL.createObjectURL(file);
+            form.img_path = URL.createObjectURL(file);
+            form.img = file;
         }
 
-        return { form, submit, closeModal, closeModalLabel, sendPut, onFileChange, urlFile }
+        return { form, submit, closeModal, closeModalLabel, sendPut, onFileChange}
     },
     mounted() {
         setTimeout(() => {
@@ -72,16 +72,14 @@ export default {
                 this.form.body = newVal.body;
                 this.form.rating = newVal.rating;
                 this.form.id = newVal.id;
+                if(newVal.img_path) {
+                    this.form.img_path = "/storage/img/"+newVal.img_path.split("/")[2];;
+                }
                 this.sendPut = true;
                 if(this.dadosPostEditar.id === undefined) {
                     this.sendPut = false;
                 }
             },
-        },
-        'form.img' : {
-            handler(newVal, oldVal) {
-                console.log(newVal);
-            }
         }
     },
 }
@@ -130,14 +128,13 @@ export default {
                                  uppercase tracking-widest hover:bg-red-700 active:bg-red-900 focus:outline-none
                                  focus:border-red-900 focus:shadow-outline-gray transition ease-in-out duration-150
                                   rounded-none bg-dark-gray-sm btn-sm">Foto</span> <i class="fa fa-image ml-2"></i>
-                                <input type="file" style="display: none;" @input="form.img = $event.target.files[0]" @change="onFileChange">
+                                <input type="file" style="display: none;" @change="onFileChange">
                             </div>
                         </label>
-                        <template v-if="form.img.name" >
+                        <template v-if="form.img_path" >
                             <div id="preview" class="mt-4">
-                                <img :src="urlFile.link" class="rounded-lg"/>
+                                <img :src="form.img_path" class="rounded-lg"/>
                             </div>
-                            <div class="mt-2 text-white break-words">{{ form.img.name }}</div>
                             <progress v-if="form.progress" :value="form.progress.percentage" max="100">
                                 {{ form.progress.percentage }}%
                             </progress>

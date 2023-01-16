@@ -5,10 +5,10 @@ use App\Models\Post;
 
 class PostRepository extends ModelRepositoryAbstract
 {
-    protected object $model;
+    public object $model;
 
-    public function __construct(Post $post)
+    public function __construct($model)
     {
-        $this->model = $post;
+        $this->model = $model;
     }
 }
