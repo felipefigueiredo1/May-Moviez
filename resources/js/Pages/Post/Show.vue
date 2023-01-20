@@ -105,7 +105,7 @@ export default {
                         </div>
                     </div>
                     <div >
-                        <div class="flex justify-between">
+                        <div class="flex justify-between flex-wrap">
                             <p class="mt-6 mb-4">{{ post.body }}</p>
                             <img :src="pathToImg" width="250">
                         </div>
