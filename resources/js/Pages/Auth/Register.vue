@@ -28,6 +28,7 @@ const submit = () => {
         <BreezeValidationErrors class="mb-4" />
 
         <form @submit.prevent="submit" class="">
+            <input type="hidden" name="is_admin" value="0">
             <div>
                 <BreezeLabel for="name" value="Name"  class="text-white"/>
                 <BreezeInput id="name" type="text" class="mt-1 block w-full" v-model="form.name" required autofocus autocomplete="name" />
