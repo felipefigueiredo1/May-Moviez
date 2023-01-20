@@ -24,10 +24,10 @@ class PostController extends Controller
     {
         $search = '';
         if($request->buscar) {
-            $posts = $this->postRepository->search($request, 6, true);
+            $posts = $this->postRepository->search($request, 6, false);
             $search = $request->buscar;
         } else {
-            $posts = $this->postRepository->get(6,true);
+            $posts = $this->postRepository->get(6,false);
         }
 
         return Inertia::render('Home', ['user' => auth()->user()->name,'userId' => auth()->user()->id, 'posts' => $posts,
