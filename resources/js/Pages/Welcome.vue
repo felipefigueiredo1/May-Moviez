@@ -17,8 +17,8 @@ defineProps({
             <p class="text-red-600">May Moviez</p>
         </div>
         <div v-if="canLogin" class="px-6 py-4 sm:block">
-            <Link v-if="$page.props.auth.user" :href="route('dashboard')" class="text-sm text-red-700 underline">
-                Dashboard
+            <Link v-if="$page.props.auth.user" :href="route('home')" class="text-sm text-red-700 underline">
+                Home
             </Link>
 
             <template v-else>
@@ -37,7 +37,7 @@ defineProps({
     </div>
     <div id="image" style="height: 1050px">
         <div class="sm:items-center flex justify-center flex-wrap" >
-            <Link v-if="$page.props.auth.user" :href="route('dashboard')" class="text-sm text-red-700 underline">
+            <Link v-if="$page.props.auth.user" :href="route('home')" class="text-sm text-red-700 underline">
                 <img src="/img/logo_may_moviez.svg" style="width:450px;" class="mt-7 bg-black p-3 rounded-sm">
             </Link>
             <template v-else>
