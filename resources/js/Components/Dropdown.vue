@@ -23,9 +23,7 @@ onMounted(() => document.addEventListener('keydown', closeOnEscape));
 onUnmounted(() => document.removeEventListener('keydown', closeOnEscape));
 
 const widthClass = computed(() => {
-    return {
-        '48': 'w-48',
-    }[props.width.toString()];
+    return 'w-'+props.width.toString();
 });
 
 const alignmentClasses = computed(() => {
@@ -62,7 +60,7 @@ const open = ref(false);
                     :class="[widthClass, alignmentClasses]"
                     style="display: none;"
                     @click="open = false">
-                <div class="rounded-md ring-1 ring-black ring-opacity-5" :class="contentClasses">
+                <div :class="'rounded-md ring-1 ring-black ring-opacity-5 bg-dark-gray-sm '+contentClasses+''">
                     <slot name="content" />
                 </div>
             </div>

@@ -37,6 +37,60 @@ const showingNavigationDropdown = ref(false);
                         </div>
 
                         <div class="hidden sm:flex sm:items-center sm:ml-6">
+
+                            <BreezeDropdown alig="right" width="96">
+                                <template #trigger>
+                                    <div class="bg-dark-gray-es w-8 text-center rounded-md">
+                                        <button id="dropdownNotificationButton" data-dropdown-toggle="dropdownNotification" class="inline-flex items-center text-sm font-medium text-center text-gray-500 hover:text-gray-900 focus:outline-none dark:hover:text-white dark:text-gray-400" type="button">
+                                            <svg class="w-6 h-6" aria-hidden="true" fill="currentColor" viewBox="-7 0 35 20" xmlns="http://www.w3.org/2000/svg" v-if="false">
+                                                <g xmlns="http://www.w3.org/2000/svg" id="Camada_2" data-name="Camada 2"><g id="Camada_1-2" data-name="Camada 1" ><path class="cls-1" d="M13.88,23.63a3.38,3.38,0,0,1-6.76,0v0h6.75Z"/><path class="cls-1" d="M18.73,18.44V17.9h0a8.15,8.15,0,0,1-1.22-.09v1.33l.59.37,1.67,1v.55H1.27v-.56l1.67-1.07.59-.37V11.33a7,7,0,0,1,7-6.94,6.75,6.75,0,0,1,2.11.33,7.2,7.2,0,0,1,1-1,7.51,7.51,0,0,0-1-.33V2.08a2.1,2.1,0,0,0-4.19,0v1.3a8.22,8.22,0,0,0-6.18,8v7.08L0,19.84v2.52H21V19.84Z"/><path class="cls-2 text-red-500" d="M25.69,9.9a7,7,0,0,1-7,7h0a7,7,0,0,1-7-7,6.89,6.89,0,0,1,1.9-4.78,5.48,5.48,0,0,1,1-.9A6.86,6.86,0,0,1,18.69,2.9,7,7,0,0,1,25.69,9.9Z"/></g></g>
+                                            </svg>
+                                            <svg class="w-6 h-6" aria-hidden="true" fill="currentColor" viewBox="-7 0 35 20" xmlns="http://www.w3.org/2000/svg" v-else>
+                                                <g xmlns="http://www.w3.org/2000/svg" id="Camada_2" data-name="Camada 2"><g id="Camada_1-2" data-name="Camada 1"><path class="cls-1" d="M13.88,23.63a3.38,3.38,0,0,1-6.76,0v0h6.76Z"/><path class="cls-1" d="M18.74,18.44V11.33a8.21,8.21,0,0,0-6.1-7.92V2.09a2.1,2.1,0,0,0-4.2,0V3.38a8.23,8.23,0,0,0-6.18,8v7.08L0,19.85v2.52H21V19.85Zm1,2.66H1.27v-.56L3,19.48l.58-.38V11.33a7,7,0,0,1,7-6.94h0a7,7,0,0,1,7,6.94v7.81l.59.37,1.67,1Z"/></g></g>
+                                            </svg>
+                                        </button>
+                                    </div>
+                                </template>
+                                <template #content >
+                                    <div class="bg-dark-gray-sm rounded-md text-white">
+                                        <div class="p-4 py-3">
+                                            <h2 class="">Notificações</h2>
+                                        </div>
+                                        <div class="w-full pb-2">
+                                            <hr class="mx-4 border-none h-0.5" style="color:#9CA3AF;border: 1px groove #9CA3AF">
+                                        </div>
+                                        <div>
+                                            <div class="">
+                                            <a href="#" class="flex px-4 py-3 hover:bg-gray-100 dark:hover:bg-gray-700">
+                                                <div class="flex-shrink-0">
+                                                    <img class="rounded-full w-11 h-11" src="/img/richard.jpg" alt="Jese image">
+
+                                                </div>
+                                                <div class="w-full pl-3">
+                                                    <div class="text-sm mb-1.5"><span class="font-semibold">Gabriel Maciel </span>comentou na sua publicação</div>
+                                                    <div class="text-xs">há 35 minutos</div>
+                                                    <!--                                                    <div class="text-xs text-blue-600 dark:text-blue-500">a few moments ago</div>-->
+                                                </div>
+                                            </a>
+
+                                                <a href="#" class="flex px-4 py-3 hover:bg-gray-100 dark:hover:bg-gray-700">
+                                                    <div class="flex-shrink-0">
+                                                        <img class="rounded-full w-11 h-11" src="/img/richard.jpg" alt="Jese image">
+
+                                                    </div>
+                                                    <div class="w-full pl-3">
+                                                        <div class="text-sm mb-1.5"><span class="font-semibold">Gabriel Maciel </span>comentou na sua publicação</div>
+                                                        <div class="text-xs">há 35 minutos</div>
+                                                        <!--                                                    <div class="text-xs text-blue-600 dark:text-blue-500">a few moments ago</div>-->
+                                                    </div>
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </template>
+                            </BreezeDropdown>
+
+
                             <!-- Settings Dropdown -->
                             <div class="ml-3 relative">
                                 <BreezeDropdown align="right" width="48">

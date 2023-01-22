@@ -83,6 +83,8 @@ class PostController extends Controller
                     $path = $request->file('img')->store('public/img');
                 }
                 $request->merge(['img_path' => $path]);
+            } else {
+                $request->request->remove('img');
             }
 
             $post->fill($request->all());
